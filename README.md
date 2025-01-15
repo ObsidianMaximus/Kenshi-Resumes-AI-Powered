@@ -1,1 +1,0 @@
-# Kenshi-Resumes-AI-Powered-
