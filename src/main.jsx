@@ -14,6 +14,10 @@ const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 const router = createBrowserRouter([
   //deafult route
   {
+    path: '/',
+    element: <Home />//now we have to make sure to render the home component inside the app component
+  },
+  {
     // path: '/',
     element: <App />,
     //sub routes
@@ -29,10 +33,6 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: '/',
-    element: <Home />//now we have to make sure to render the home component inside the app component
-  },
-  {
     path: '/auth/sign-in',
     element: <SignInPage />,
   }
@@ -44,5 +44,5 @@ createRoot(document.getElementById('root')).render(
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
       <RouterProvider router={router} />
     </ClerkProvider>
-  </StrictMode>,
+  </StrictMode>
 )
