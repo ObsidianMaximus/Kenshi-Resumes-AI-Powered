@@ -20,7 +20,7 @@ function AddResume() {
     const [resumeTitle, setResumeTitle] = useState();
     const [loading, setLoading] = useState(false);
 
-    const user = useUser();
+    const { user } = useUser();
 
     const onCreate = () => {
         setLoading(true);//set loading to true to show loading spinner

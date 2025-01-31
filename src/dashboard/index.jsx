@@ -1,19 +1,23 @@
-import React, { useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import AddResume from './components/AddResume';
 import GlobalApi from './../../service/GlobalApi';
 import { useUser } from '@clerk/clerk-react';
+import ResumeCardItem from './components/ResumeCardItem';
 
 function Dashboard() {
     //fetching user emaail using clerk
     const { user } = useUser();
+    const [resumeList, setResumeList] = useState([]); //state to store resume list
 
     useEffect(() => {
         user && GetResumesList(); //if user is present then get the resume list
     }, [user]);
 
+    //function to get resume list
     const GetResumesList = () => {
         GlobalApi.GetUserResumes(user?.primaryEmailAddress?.emailAddress).then(res => {
-            console.log(res.data);
+            console.log(res.data.data);
+            setResumeList(res.data.data);
         })
     }
 
@@ -23,8 +27,13 @@ function Dashboard() {
             <p>
                 "Craft your perfect resume effortlessly with AI-powered precision!"
             </p>
-            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 mt-10'>
+            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 mt-10 gap-5'>
                 <AddResume />
+
+                {/*&& operator is used to check if resumeList is present or not otherwise it will throw an error*/}
+                {resumeList.length > 0 && resumeList.map((resume, index) => {
+                    return <ResumeCardItem key={index} resume={resume} />
+                })}
             </div>
         </div>
     )
