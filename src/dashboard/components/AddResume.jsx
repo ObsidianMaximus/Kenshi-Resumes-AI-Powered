@@ -14,11 +14,13 @@ import { Input } from "@/components/ui/input"
 import { v4 as uuidv4 } from 'uuid'
 import { useUser } from '@clerk/clerk-react'
 import GlobalApi from '../../../service/GlobalApi'
+import { useNavigate } from 'react-router'
 
 function AddResume() {
     const [openDialog, setOpenDialog] = useState(false);
     const [resumeTitle, setResumeTitle] = useState();
     const [loading, setLoading] = useState(false);
+    const navigation = useNavigate();//useNavigate hook to navigate to different routes
 
     const { user } = useUser();
 
@@ -37,10 +39,14 @@ function AddResume() {
         }
 
         GlobalApi.CreateNewResume(data).then((res) => {
+            console.log(res.data.data.documentId);//get the document id from the response as strapi requires the document id to be passed in the url
+
             console.log(res);
             if (res) {//if the response is successful
                 setLoading(false);
                 setOpenDialog(false);
+                // navigation('/dashboard/resume/' + uuid + '/edit');//navigate to the edit page of the resume
+                navigation('/dashboard/resume/' + res.data.data.documentId + '/edit');//navigate to the edit page of the resume
             }
         }, (err) => {
             console.log(err);
@@ -55,9 +61,10 @@ function AddResume() {
                 <PlusSquare />
             </div>
 
-            <Dialog open={openDialog}> {/* if openDialog is true dialog will open and vice-versa */}
+            {/*onOpenChange={setOpenDialog} dialog will automatically pass false */}
+            <Dialog open={openDialog} onOpenChange={setOpenDialog}> {/* if openDialog is true dialog will open and vice-versa */}
                 {/* <DialogTrigger>Open</DialogTrigger> */} {/* This is the button that will trigger open the dialog */}
-                <DialogContent>
+                <DialogContent >
                     <DialogHeader>
                         <DialogTitle>Create New Resume</DialogTitle>
                         <DialogDescription>
