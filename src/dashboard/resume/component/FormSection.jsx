@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import PersonalDetails from './forms/PersonalDetails'
 import { ArrowLeft, ArrowRight, LayoutGrid } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
+import Summary from './forms/Summary';
+import Experience from './forms/Experience';
 
 function FormSection() {
     const [activeFormIndex, setActiveFormIndex] = useState(1);
@@ -28,11 +30,18 @@ function FormSection() {
             </div>
 
             {/* Personal Detail */}
-            {activeFormIndex == 1 ? <PersonalDetails enabledNext={(v) => setEnableNext(v)} /> : null}
-            {/*Summary */}
-            {/*Experience */}
-            {/*Education */}
-            {/*Skills */}
+            {
+                activeFormIndex == 1 ?
+                    <PersonalDetails enabledNext={(v) => setEnableNext(v)} />
+                    /*Summary */
+                    : activeFormIndex == 2 ?
+                        <Summary enabledNext={(v) => setEnableNext(v)} />
+                        /*Experience */
+                        : activeFormIndex == 3 ?
+                            <Experience enabledNext={(v) => setEnableNext(v)} />
+                            /*Education */
+                            /*Skills */
+                            : null}
         </div>
     )
 }
