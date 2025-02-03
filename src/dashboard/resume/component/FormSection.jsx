@@ -4,7 +4,8 @@ import { ArrowLeft, ArrowRight, LayoutGrid } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 
 function FormSection() {
-    const [activeFormIndex, setActiveFormIndex] = useState(2);
+    const [activeFormIndex, setActiveFormIndex] = useState(1);
+    const [enableNext, setEnableNext] = useState(false);
 
     return (
         <div>
@@ -16,7 +17,9 @@ function FormSection() {
                     >
                         <ArrowLeft />
                     </Button>}
-                    <Button className="flex gap-2" size="sm"
+                    <Button
+                        disabled={!enableNext}
+                        className="flex gap-2" size="sm"
                         onClick={() => setActiveFormIndex(activeFormIndex + 1)}>
                         Next
                         <ArrowRight />
@@ -25,7 +28,7 @@ function FormSection() {
             </div>
 
             {/* Personal Detail */}
-            {activeFormIndex == 1 ? <PersonalDetails /> : null}
+            {activeFormIndex == 1 ? <PersonalDetails enabledNext={(v) => setEnableNext(v)} /> : null}
             {/*Summary */}
             {/*Experience */}
             {/*Education */}

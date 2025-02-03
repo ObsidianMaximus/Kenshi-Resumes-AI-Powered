@@ -6,6 +6,7 @@ import './App.css'
 import { Navigate, Outlet } from 'react-router'
 import { useUser } from '@clerk/clerk-react'
 import Header from './components/custom/Header'
+import { Toaster } from "@/components/ui/sonner"
 
 function App() {
   const { user, isLoaded, isSignedIn } = useUser();//user hook
@@ -21,6 +22,7 @@ function App() {
       <Header />
       {/* this is where the home component will be rendered */}
       <Outlet />
+      <Toaster />
     </div>
   );
 }
