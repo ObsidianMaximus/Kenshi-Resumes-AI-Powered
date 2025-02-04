@@ -74,6 +74,10 @@ function Education() {
         });
     }, [educationalList])
 
+    useEffect(() => {
+        resumeInfo && setEducationalList(resumeInfo?.education)
+    }, []);
+
     return (
         <div className='p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10'>
             <h2 className='font-bold text-lg'>Education</h2>
@@ -85,29 +89,29 @@ function Education() {
                         <div className='grid grid-cols-2 gap-3 border p-3 my-5 rounded-lg'>
                             <div className='col-span-2'>
                                 <label>University Name</label>
-                                <Input name="university" onChange={(event) => handleChange(index, event)} />
+                                <Input name="university" defaultValue={education.university} onChange={(event) => handleChange(index, event)} />
                             </div>
                             <div>
                                 <label>Degree</label>
-                                <Input name="degree" onChange={(event) => handleChange(index, event)} />
+                                <Input name="degree" defaultValue={education.degree} onChange={(event) => handleChange(index, event)} />
                             </div>
                             <div>
                                 <label>Major</label>
-                                <Input name="major" onChange={(event) => handleChange(index, event)} />
+                                <Input name="major" defaultValue={education.major} onChange={(event) => handleChange(index, event)} />
                             </div>
                             <div>
                                 <label>Start Date</label>
                                 <Input name="startDate" ref={startDateRef}
-                                    onFocus={() => startDateRef.current?.showPicker()} type="date" onChange={(event) => handleChange(index, event)} />
+                                    onFocus={() => startDateRef.current?.showPicker()} type="date" defaultValue={education.startDate} onChange={(event) => handleChange(index, event)} />
                             </div>
                             <div>
                                 <label>End Date</label>
                                 <Input name="endDate" ref={endDateRef}
-                                    onFocus={() => endDateRef.current?.showPicker()} type="date" onChange={(event) => handleChange(index, event)} />
+                                    onFocus={() => endDateRef.current?.showPicker()} type="date" defaultValue={education.endDate} onChange={(event) => handleChange(index, event)} />
                             </div>
                             <div className='col-span-2'>
                                 <label>Description</label>
-                                <Textarea name="description" onChange={(event) => handleChange(index, event)} />
+                                <Textarea name="description" defaultValue={education.description} onChange={(event) => handleChange(index, event)} />
                             </div>
                         </div>
                     </div>

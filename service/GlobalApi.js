@@ -19,8 +19,14 @@ const GetUserResumes = (userEmail) => axiosClient.get('/user-resumes?filters[use
 
 const UpdateResumeDetail = (id, data) => axiosClient.put(`/user-resumes/${id}`, data)
 
+const GetUserResumeById = (id) => axiosClient.get('/user-resumes/' + id + "?populate=*")//'?populate=*' to fetch entire details of all components and not just basic details
+
+const DeleteResumeById = (id) => axiosClient.delete('/user-resumes/' + id)
+
 export default {
     CreateNewResume,
     GetUserResumes,
-    UpdateResumeDetail
+    UpdateResumeDetail,
+    GetUserResumeById,
+    DeleteResumeById
 }

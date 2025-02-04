@@ -26,9 +26,9 @@ import { useContext } from 'react';
 import { chatSession } from './../../../../service/AIModel';
 
 const PROMPT = 'position title: {positionTitle} , Depends on position title give me 5-7 bullet points for my experience in resume (Please do not add experince level and No JSON array) , give me result in HTML tags';
-function RichTextEditor({ onRichTextEditorChange, index }) {
+function RichTextEditor({ onRichTextEditorChange, index, defaultValue }) {
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
-    const [value, setvalue] = useState();
+    const [value, setvalue] = useState(defaultValue);
     const [loading, setLoading] = useState(false);
 
     const GenerateSummaryFromAI = async () => {

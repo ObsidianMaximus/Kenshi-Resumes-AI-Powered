@@ -46,6 +46,10 @@ function Experience() {
         setExperienceList(newEntries);
     }
 
+    useEffect(() => (
+        resumeInfo && setExperienceList(resumeInfo?.Experience)
+    ), [resumeInfo]);
+
     useEffect(() => {
         console.log(experienceList);
         setResumeInfo({
@@ -67,7 +71,6 @@ function Experience() {
         */}
         setExperienceList(experienceList => experienceList.slice(0, -1));
         console.log(experienceList);
-
     }
 
     const handleRichTextEditorChange = (event, name, index) => {
@@ -107,19 +110,19 @@ function Experience() {
                             <div className='grid grid-cols-2 gap-3 border p-3 my-5 rounded-lg'>
                                 <div>
                                     <label className='text-xs'>Position Title</label>
-                                    <Input name="title" onChange={(event) => handleChange(index, event)} />
+                                    <Input name="title" defaultValue={item?.title} onChange={(event) => handleChange(index, event)} />
                                 </div>
                                 <div>
                                     <label className='text-xs'>Company Name</label>
-                                    <Input name="companyName" onChange={(event) => handleChange(index, event)} />
+                                    <Input name="companyName" defaultValue={item?.companyName} onChange={(event) => handleChange(index, event)} />
                                 </div>
                                 <div>
                                     <label className='text-xs'>City</label>
-                                    <Input name="city" onChange={(event) => handleChange(index, event)} />
+                                    <Input name="city" defaultValue={item?.city} onChange={(event) => handleChange(index, event)} />
                                 </div>
                                 <div>
                                     <label className='text-xs'>State</label>
-                                    <Input name="state" onChange={(event) => handleChange(index, event)} />
+                                    <Input name="state" defaultValue={item?.state} onChange={(event) => handleChange(index, event)} />
                                 </div>
                                 <div>
                                     <label className='text-xs'>Start Date</label>
@@ -128,7 +131,8 @@ function Experience() {
                                         ref={startDateRef}
                                         onFocus={() => startDateRef.current?.showPicker()}
                                         name="startDate"
-                                        onChange={(event) => handleChange(index, event)} />
+                                        onChange={(event) => handleChange(index, event)}
+                                        defaultValue={item?.startDate} />
                                 </div>
                                 <div>
                                     <label className='text-xs'>End Date</label>
@@ -137,11 +141,13 @@ function Experience() {
                                         ref={endDateRef}
                                         onFocus={() => endDateRef.current?.showPicker()}
                                         name="endDate"
-                                        onChange={(event) => handleChange(index, event)} />
+                                        onChange={(event) => handleChange(index, event)}
+                                        defaultValue={item?.endDate} />
                                 </div>
                                 <div className='col-span-2'>
                                     {/*Work Summary */}
                                     <RichTextEditor
+                                        defaultValue={item?.workSummery}
                                         key={index}
                                         index={index}
                                         onRichTextEditorChange={(event) => handleRichTextEditorChange(event, 'workSummery', index)}

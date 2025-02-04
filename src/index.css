@@ -2,8 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+/*definition for downloading pdf*/
+@media print{
+  #non-printable{
+    display: none;
+  }
+
+  #print-area{
+    display: block;
+  }
+
+  /*for removing date and time at time of printing*/
+  body{
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+}
+
+/*for removing date and time at time of printing*/
+@page{
+  size: auto;
+  margin: 0mm;
+}
+
+
+
 /*fixed rich-text-editor styling issue*/
-.rsw-ce ul {
+/* .rsw-ce ul {
   list-style: disc;
   padding-left: 2em;
 }
@@ -11,7 +37,20 @@
 .rsw-ce ol {
   list-style: decimal;
   padding-left: 2em;
+} */
+
+/* For unordered lists (bullets) */
+ul {
+  list-style-type: disc !important;  /* Default bullet points */
+  margin-left: 20px; /* Ensure the list has left margin for bullets */
 }
+
+/* For ordered lists (numbers) */
+ol {
+  list-style-type: decimal !important;  /* Default numbered list */
+  margin-left: 20px; /* Ensure the list has left margin for numbers */
+}
+
 /* ... */
 
 

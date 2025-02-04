@@ -43,7 +43,7 @@ function Skills() {
         setLoading(true);
         const data = {
             data: {
-                skills: skillsList
+                skills: skillsList.map(({ id, ...rest }) => rest)
             }
         }
         GlobalApi.UpdateResumeDetail(resumeId, data).then(res => {
@@ -63,6 +63,10 @@ function Skills() {
             skills: skillsList
         });
     }, [skillsList]);//every time skillsList changes, update the resumeInfo
+
+    useEffect(() => {
+        resumeInfo && setSkillsList(resumeInfo?.skills)
+    }, []);
     return (
         <div>
             <div className='p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10'>
@@ -71,15 +75,16 @@ function Skills() {
 
                 <div>
                     {skillsList.map((skill, index) => (
-                        <div className='flex justify-between mb-2 border rounded-lg p-3'>
+                        <div key={index} className='flex justify-between mb-2 border rounded-lg p-3'>
                             <div>
                                 <label className='text-xs'>Skill Name</label>
-                                <Input className="w-full" onChange={(e) => handleChange(index, 'name', e.target.value)} />
+                                <Input className="w-full" defaultValue={skill?.name} onChange={(e) => handleChange(index, 'name', e.target.value)} />
                                 {/*rating must be converted to 0 to 5 for value and must be passed between 0 to 100 for display */}
                             </div>
                             <Rating
                                 style={{ maxWidth: 120 }}
                                 value={(skill.rating) / 20}
+                                defaultValue={(skill?.rating) / 20}
                                 onChange={(value) => handleChange(index, 'rating', value * 20)} />
                         </div>
                     ))}

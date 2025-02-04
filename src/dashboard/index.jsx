@@ -22,7 +22,7 @@ function Dashboard() {
     }
 
     return (
-        <div className='p-10 md:px-20 lg:px-32'>
+        <div className='h-screen p-10 md:px-20 lg:px-32 bg-gradient-to-r from-indigo-200 to-yellow-100'>
             <h2 className='font-bold text-3xl'>My Resume</h2>
             <p>
                 "Craft your perfect resume effortlessly with AI-powered precision!"
@@ -32,7 +32,7 @@ function Dashboard() {
 
                 {/*&& operator is used to check if resumeList is present or not otherwise it will throw an error*/}
                 {resumeList.length > 0 && resumeList.map((resume, index) => {
-                    return <ResumeCardItem key={index} resume={resume} />
+                    return <ResumeCardItem key={index} resume={resume} refreshData={GetResumesList} />
                 })}
             </div>
         </div>

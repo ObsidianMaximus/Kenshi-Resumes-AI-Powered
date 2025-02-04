@@ -7,7 +7,7 @@ import { useUser } from '@clerk/clerk-react'
 function Header() {
     const { user, isSignedIn, isLoaded } = useUser();
     return (
-        <div className='p-3 px-5 flex justify-between shadow-md'>
+        <div className='p-3 px-5 flex justify-between shadow-md bg-gradient-to-r from-red-200 to-yellow-200'>
             <img src="../../../logo.svg" alt="logo" width={100} height={100} />
 
             {
@@ -19,7 +19,7 @@ function Header() {
                         <UserButton />
                     </div> :
                     <Link to={'/auth/sign-in'}>    {/*from react router*/}
-                        <Button>Get Started</Button>
+                        <Button className="bg-gradient-to-r from-violet-400 to-indigo-600">Get Started</Button>
                     </Link>
             }
         </div >

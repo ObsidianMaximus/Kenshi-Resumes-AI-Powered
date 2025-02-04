@@ -13,7 +13,7 @@ function ExperiencePreview({ resumeInfo }) {
             }} />
 
             {/*using () does not need return keyword */}
-            {resumeInfo?.experience.map((experience, index) => (
+            {resumeInfo?.Experience?.map((experience, index) => (
                 <div key={index} className='my-5'>
                     <h2 className='text-sm font-bold'
                         style={{
@@ -32,7 +32,6 @@ function ExperiencePreview({ resumeInfo }) {
                     {/* dangerouslySetInnerHTML is used to render the html tags */}
                     {/*A single div is used */}
                     <div dangerouslySetInnerHTML={{ __html: experience?.workSummery }} />
-
                 </div>
             ))}
         </div>

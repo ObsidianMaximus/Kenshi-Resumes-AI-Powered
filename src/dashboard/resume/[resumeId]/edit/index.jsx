@@ -4,15 +4,26 @@ import FormSection from '../../component/FormSection'
 import ResumePreview from '../../component/ResumePreview'
 import { ResumeInfoContext } from '@/context/ResumeInfoContext';
 import dummy from '@/data/dummy';
+import GlobalApi from '../../../../../service/GlobalApi';
 
 function EditResume() {
     const params = useParams();//useParams is a hook that allows you to access the URL parameters from a current route in react-router
     const [resumeInfo, setResumeInfo] = useState();
+    const { resumeId } = useParams();
+
     useEffect(
         () => {
             console.log(params.resumeId);
-            setResumeInfo(dummy);//set the resumeInfo to the dummy data
+            // setResumeInfo(dummy);//set the resumeInfo to the dummy data
+            GetResumeInfo();
         }, []);//[] so that it will be looaded on every render
+
+    const GetResumeInfo = () => {
+        GlobalApi.GetUserResumeById(resumeId).then(res => {
+            console.log(res.data.data);
+            setResumeInfo(res.data.data);
+        })
+    }
 
     return (
         <ResumeInfoContext.Provider value={{ resumeInfo, setResumeInfo }}>

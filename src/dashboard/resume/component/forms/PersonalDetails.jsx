@@ -12,7 +12,7 @@ import { toast } from "sonner"
 function PersonalDetails({ enabledNext }) {
     const params = useParams();
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
-    const [formData, setFormData] = useState();
+    const [formData, setFormData] = useState({});
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -46,6 +46,7 @@ function PersonalDetails({ enabledNext }) {
 
         }, (err) => {
             console.log(err);
+            toast("Some error occured, please  try again...");
             setLoading(false);
         });
         enabledNext(true);
