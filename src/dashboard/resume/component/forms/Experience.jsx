@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import RichTextEditor from '../RichTextEditor';
+import { ResumeInfoContext } from '@/context/ResumeInfoContext';
+import GlobalApi from './../../../../../service/GlobalApi';
+import { useParams } from 'react-router';
+import { LoaderCircle } from 'lucide-react';
+import { toast } from "sonner";
+import { useRef } from 'react';
 
 const formField = {
     title: '',
@@ -15,11 +21,78 @@ const formField = {
 };
 
 function Experience() {
+    const startDateRef = useRef(null);
+    const endDateRef = useRef(null);
+
+    const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
+    const [loading, setLoading] = useState(false);
+    const params = useParams();
     const [experienceList, setExperienceList] = useState([
         formField
     ]);
 
+    {/*index of the particulae experience div and name and value of a particyular experience role 
+    newEntries now holds:
+        [
+        { title: 'Software Engineer', companyName: 'Tech Co.' },
+        { title: 'Data Scientist', companyName: 'Data Inc.' }
+        ]
+    */}
+
     const handleChange = (index, event) => {
+        const newEntries = experienceList.slice();
+        const { name, value } = event.target;
+        newEntries[index][name] = value;
+        setExperienceList(newEntries);
+    }
+
+    useEffect(() => {
+        console.log(experienceList);
+        setResumeInfo({
+            ...resumeInfo,
+            experience: experienceList
+        });
+    }, [experienceList])
+
+    const AddNewExperience = () => {
+        setExperienceList([...experienceList, formField]);
+        console.log(experienceList);
+
+    }
+
+    const RemoveExperience = () => {
+        {/*
+            array.slice(1, 3) returns [2, 3] (starts at index 1, ends before index 3).
+            array.slice(0, -1) returns [1, 2, 3, 4] (all elements except the last one).
+        */}
+        setExperienceList(experienceList => experienceList.slice(0, -1));
+        console.log(experienceList);
+
+    }
+
+    const handleRichTextEditorChange = (event, name, index) => {
+        const newEntries = experienceList.slice();
+        newEntries[index][name] = event.target.value;
+        setExperienceList(newEntries);
+    }
+
+    const onSave = () => {
+        setLoading(true)
+        const data = {
+            data: {
+                Experience: experienceList.map(({ id, ...rest }) => rest)
+            }
+        }
+
+        console.log(experienceList)
+
+        GlobalApi.UpdateResumeDetail(params?.resumeId, data).then(res => {
+            console.log(res);
+            setLoading(false);
+            toast('Details updated !')
+        }, (error) => {
+            setLoading(false);
+        })
 
     }
 
@@ -30,7 +103,7 @@ function Experience() {
                 <p>Please add your previous Job Experience</p>
                 <div>
                     {experienceList.map((item, index) => (
-                        <div>
+                        <div key={index}>
                             <div className='grid grid-cols-2 gap-3 border p-3 my-5 rounded-lg'>
                                 <div>
                                     <label className='text-xs'>Position Title</label>
@@ -50,15 +123,29 @@ function Experience() {
                                 </div>
                                 <div>
                                     <label className='text-xs'>Start Date</label>
-                                    <Input type="date" name="startDate" onChange={(event) => handleChange(index, event)} />
+                                    <Input
+                                        type="date"
+                                        ref={startDateRef}
+                                        onFocus={() => startDateRef.current?.showPicker()}
+                                        name="startDate"
+                                        onChange={(event) => handleChange(index, event)} />
                                 </div>
                                 <div>
                                     <label className='text-xs'>End Date</label>
-                                    <Input type="date" name="endDate" onChange={(event) => handleChange(index, event)} />
+                                    <Input
+                                        type="date"
+                                        ref={endDateRef}
+                                        onFocus={() => endDateRef.current?.showPicker()}
+                                        name="endDate"
+                                        onChange={(event) => handleChange(index, event)} />
                                 </div>
                                 <div className='col-span-2'>
                                     {/*Work Summary */}
-                                    <RichTextEditor />
+                                    <RichTextEditor
+                                        key={index}
+                                        index={index}
+                                        onRichTextEditorChange={(event) => handleRichTextEditorChange(event, 'workSummery', index)}
+                                    />
                                 </div>
 
                             </div>
@@ -67,8 +154,13 @@ function Experience() {
                 </div>
 
                 <div className='flex justify-between'>
-                    <Button variant="outline" className="text-primary">+ Add More Experience</Button>
-                    <Button  >Save</Button>
+                    <div className='flex gap-2'>
+                        <Button variant="outline" onClick={AddNewExperience} className="text-primary">+ Add More Experience</Button>
+                        <Button variant="outline" onClick={RemoveExperience} className="text-primary">- Remove</Button>
+                    </div>
+                    <Button disabled={loading} onClick={() => onSave()}>
+                        {loading ? <LoaderCircle className='animate-spin' /> : 'Save'}
+                    </Button>
                 </div>
             </div>
         </div>

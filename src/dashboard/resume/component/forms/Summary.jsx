@@ -70,6 +70,7 @@ function Summary({ enabledNext }) {
                     <Textarea
                         placeholder="Write your own or can see the magic of AI"
                         className="mt-5"
+                        value={summery ? summery : resumeInfo?.summery}
                         onChange={(e) => setSummery(e.target.value)}
                         required
                     />
@@ -85,12 +86,14 @@ function Summary({ enabledNext }) {
             {aiGeneratedSummaryList &&
                 <div>
                     <h2 className='font-bold text-lg'>Suggestions:</h2>
-                    {aiGeneratedSummaryList.map((item, index) => {
-                        <div key={index}>
-                            <h2 className='font-bold my-1'>Level: {item?.experienceLevel}</h2>
-                            <p>{item.summary}</p>
+                    {aiGeneratedSummaryList.map((item, index) => (
+                        <div key={index}
+                            onClick={() => setSummery(item?.summary)}
+                            className='p-5 shadow-lg my-4 rounded-lg cursor-pointer'>
+                            <h2 className='font-bold my-1 text-primary'>Level: {item?.experience_level}</h2>
+                            <p>{item?.summary}</p>
                         </div>
-                    })}
+                    ))}
                 </div>}
         </div>
     )
