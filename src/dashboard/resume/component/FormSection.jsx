@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PersonalDetails from './forms/PersonalDetails'
 import { ArrowLeft, ArrowRight, LayoutGrid } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
+import { Button } from '../../../components/ui/button'
 import Summary from './forms/Summary';
 import Experience from './forms/Experience';
 import Education from './forms/Education';
