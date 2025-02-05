@@ -2,7 +2,7 @@ import React from 'react'
 import { useContext, useEffect, useState } from 'react'
 import { ResumeInfoContext } from '@/context/ResumeInfoContext';
 import { Input } from '@/components/ui/Input';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import { useParams } from 'react-router';
 import GlobalApi from './../../../../../service/GlobalApi';
 import { LoaderCircle } from 'lucide-react';

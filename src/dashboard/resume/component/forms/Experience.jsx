@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import { Input } from '@/components/ui/Input';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import RichTextEditor from '../RichTextEditor';
 import { ResumeInfoContext } from '@/context/ResumeInfoContext';
 import GlobalApi from './../../../../../service/GlobalApi';

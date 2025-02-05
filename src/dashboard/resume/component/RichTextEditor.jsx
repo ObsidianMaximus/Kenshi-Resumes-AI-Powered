@@ -19,7 +19,7 @@ import {
     EditorProvider,
 } from 'react-simple-wysiwyg';
 import { Brain, LoaderCircle } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import { ResumeInfoContext } from '@/context/ResumeInfoContext';
 import { toast } from 'sonner';
 import { useContext } from 'react';
