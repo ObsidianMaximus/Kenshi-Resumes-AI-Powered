@@ -1,7 +1,7 @@
 import React from 'react'
 import { useContext, useEffect, useState } from 'react'
 import { ResumeInfoContext } from '@/context/ResumeInfoContext';
-import { Input } from '@/components/ui/Input';
+import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useParams } from 'react-router';
 import GlobalApi from './../../../../../service/GlobalApi';
