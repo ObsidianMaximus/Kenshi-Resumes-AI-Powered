@@ -1,0 +1,13 @@
+{
+    "version": 2,
+    "routes": [
+        {
+            "src": "/my-resume/:resumeId/view",
+            "dest": "/index.html"
+        },
+        {
+            "src": "/:path*",
+            "dest": "/index.html"
+        }
+    ]
+}
