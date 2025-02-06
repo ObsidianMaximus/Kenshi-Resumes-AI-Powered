@@ -38,4 +38,4 @@ jobs:
 
       - name: Push Docker image to GHCR
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/kenshi_resumes_ai_powered:latest
+          docker push ghcr.io/obsidianmaximus/kenshi_resumes_ai_powered:latest
