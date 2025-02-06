@@ -25,7 +25,32 @@ import { toast } from 'sonner';
 import { useContext } from 'react';
 import { chatSession } from './../../../../service/AIModel';
 
-const PROMPT = 'position title: {positionTitle} , Depends on position title give me 5-7 bullet points for my experience in resume (Please do not add experince level and No JSON array) , give me result in HTML tags';
+const PROMPT =
+    `
+    Based on the position "{positionTitle}", provide 5-7 bullet points for my resume experience for a word file.
+    Do not include any JSON formatting, keys, or extra text or any special characters or quotes. 
+
+    DO NOT GIVE RESPONSE LIKE A JSON OBJECT OR A JS OBJECT OR IN KEY VALUE PAIR JUST GIVE RESPONSE LIKE IN NARURAL LANGUAGE.
+
+    Response format example(VERY STRICTLY FOLLOW!):
+
+    Developed and maintained applications using Python, Django, and PostgreSQL.
+    Collaborated with product managers and designers to define and implement user-friendly features. 
+    Implemented RESTful APIs to integrate with various internal and external services.
+    Automated testing using pytest and continuous integration/continuous deployment (CI/CD) pipelines.
+
+    UNACCETABLE RESPONSE EXAMPLE:
+    "bullets": [
+    "Developed and maintained applications using Java Spring Boot and RESTful APIs",
+    "Collaborated with cross-functional teams to design develop and deploy software solutions",
+    "Implemented automated testing frameworks using JUnit and Mockito to ensure high code quality",
+    "Troubleshooted and resolved production issues ensuring application stability and performance",
+    "Contributed to the design and implementation of CI/CD pipelines for automated deployments using Jenkins",
+    "Optimized application performance by identifying and resolving bottlenecks in code and database queries",
+    "Participated in code reviews and provided constructive feedback to improve code quality and maintainability"
+  ]
+
+    `
 function RichTextEditor({ onRichTextEditorChange, index, defaultValue }) {
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
     const [value, setvalue] = useState(defaultValue);
@@ -33,13 +58,13 @@ function RichTextEditor({ onRichTextEditorChange, index, defaultValue }) {
 
     const GenerateSummaryFromAI = async () => {
         setLoading(true);
-        if (!resumeInfo?.experience[index]?.title) {
+        if (!resumeInfo?.Experience[index]?.title) {
             console.log(index);
             toast("Please add a position title to generate the summary");
             setLoading(false);
             return;//if the user has not selected a position title, show a toast message and return
         }
-        const prompt = PROMPT.replace("{positionTitle}", resumeInfo?.experience[index]?.title);
+        const prompt = PROMPT.replace("{positionTitle}", resumeInfo?.Experience[index]?.title);
         console.log(PROMPT);
         const result = await chatSession.sendMessage(prompt);
         console.log(result.response.text());

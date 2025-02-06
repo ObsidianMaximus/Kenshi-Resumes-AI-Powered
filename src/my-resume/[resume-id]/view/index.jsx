@@ -6,9 +6,11 @@ import GlobalApi from '../../../../service/GlobalApi';
 import { useParams } from 'react-router';
 import { ResumeInfoContext } from '@/context/ResumeInfoContext';
 import { RWebShare } from "react-web-share";
+import html2pdf from 'html2pdf.js';
 
 function ViewResume() {
     const [resumeInfo, setResumeInfo] = useState();
+    const [downloading, setDownloading] = useState(false);
     const { resumeId } = useParams();
 
     useEffect(() => {
@@ -22,8 +24,29 @@ function ViewResume() {
         })
     }
 
+    // const HandleDownload = () => {
+    //     window.print();
+    // }
+
     const HandleDownload = () => {
-        window.print();
+        if (!resumeInfo || downloading) return; // Ensure resumeInfo is available and no download in progress
+        setDownloading(true);
+        let element = document.getElementById('print-area');
+        let opt = {
+            margin: 0,
+            filename: resumeInfo?.firstName + " " + resumeInfo?.lastName + "'s resume.pdf",
+            image: { type: 'jpeg', quality: 1 },
+            html2canvas: { scale: 3 },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+
+        // New Promise-based usage:
+        html2pdf().from(element).set(opt).save().finally(() => {
+            setDownloading(false); // Reset flag when download is finished or canceled
+        });;
+
+        // Old monolithic-style usage:
+        // html2pdf(element, opt);
     }
 
     return (
@@ -39,7 +62,8 @@ function ViewResume() {
                             <RWebShare
                                 data={{
                                     text: "Hey guys!This is my resume,have a look please...",
-                                    url: import.meta.env.VITE_BASE_URL + "my-resume/" + resumeId + "/view",
+                                    // url: import.meta.env.VITE_BASE_URL + "/my-resume/" + resumeId + "/view",
+                                    url: import.meta.env.VITE_BASE_URL + "/my-resume/" + resumeId + "/view",
                                     title: resumeInfo?.firstName + " " + resumeInfo?.lastName + "'s resume",
                                 }}
                                 onClick={() => console.log("shared successfully!")}

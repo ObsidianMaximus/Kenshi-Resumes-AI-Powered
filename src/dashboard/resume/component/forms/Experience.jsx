@@ -23,15 +23,12 @@ const formField = {
 function Experience() {
     const startDateRef = useRef(null);
     const endDateRef = useRef(null);
-
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
     const [loading, setLoading] = useState(false);
     const params = useParams();
-    const [experienceList, setExperienceList] = useState([
-        formField
-    ]);
+    const [experienceList, setExperienceList] = useState([formField]);
 
-    {/*index of the particulae experience div and name and value of a particyular experience role 
+    {/*index of the particular experience div and name and value of a particular experience role 
     newEntries now holds:
         [
         { title: 'Software Engineer', companyName: 'Tech Co.' },
@@ -46,17 +43,18 @@ function Experience() {
         setExperienceList(newEntries);
     }
 
-    useEffect(() => (
-        resumeInfo && setExperienceList(resumeInfo?.Experience)
-    ), [resumeInfo]);
+    useEffect(() => {
+        if (resumeInfo === null || undefined) setExperienceList([formField]);
+        else (resumeInfo) && setExperienceList(resumeInfo?.Experience)
+    }, []);
 
     useEffect(() => {
         console.log(experienceList);
         setResumeInfo({
             ...resumeInfo,
-            experience: experienceList
+            Experience: experienceList
         });
-    }, [experienceList])
+    }, [experienceList]);
 
     const AddNewExperience = () => {
         setExperienceList([...experienceList, formField]);
@@ -105,7 +103,7 @@ function Experience() {
                 <h2 className='font-bold text-lg'>Professional Experience</h2>
                 <p>Please add your previous Job Experience</p>
                 <div>
-                    {experienceList.map((item, index) => (
+                    {experienceList?.map((item, index) => (
                         <div key={index}>
                             <div className='grid grid-cols-2 gap-3 border p-3 my-5 rounded-lg'>
                                 <div>
@@ -129,7 +127,7 @@ function Experience() {
                                     <Input
                                         type="date"
                                         ref={startDateRef}
-                                        onFocus={() => startDateRef.current?.showPicker()}
+                                        onClick={() => startDateRef.current?.showPicker()}
                                         name="startDate"
                                         onChange={(event) => handleChange(index, event)}
                                         defaultValue={item?.startDate} />
@@ -139,7 +137,7 @@ function Experience() {
                                     <Input
                                         type="date"
                                         ref={endDateRef}
-                                        onFocus={() => endDateRef.current?.showPicker()}
+                                        onClick={() => endDateRef.current?.showPicker()}
                                         name="endDate"
                                         onChange={(event) => handleChange(index, event)}
                                         defaultValue={item?.endDate} />

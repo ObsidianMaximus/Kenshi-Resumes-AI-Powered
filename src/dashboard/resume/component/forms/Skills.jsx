@@ -65,7 +65,15 @@ function Skills() {
     }, [skillsList]);//every time skillsList changes, update the resumeInfo
 
     useEffect(() => {
-        resumeInfo && setSkillsList(resumeInfo?.skills)
+        if (resumeInfo === null || undefined) {
+            setSkillsList([{
+                name: '',
+                rating: 0
+            }])
+        }
+        else {
+            setSkillsList(resumeInfo?.skills);
+        }
     }, []);
     return (
         <div>
