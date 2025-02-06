@@ -63,7 +63,7 @@ function ViewResume() {
                                 data={{
                                     text: "Hey guys!This is my resume,have a look please...",
                                     // url: import.meta.env.VITE_BASE_URL + "/my-resume/" + resumeId + "/view",
-                                    url: import.meta.env.VITE_BASE_URL + "/my-resume/" + resumeId + "/view",
+                                    url: window.location.href,
                                     title: resumeInfo?.firstName + " " + resumeInfo?.lastName + "'s resume",
                                 }}
                                 onClick={() => console.log("shared successfully!")}
