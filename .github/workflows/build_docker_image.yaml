@@ -34,8 +34,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build --build-arg VITE_STRAPI_API_KEY=$VITE_STRAPI_API_KEY --build-arg VITE_BASE_URL=$VITE_BASE_URL --build-arg VITE_CLERK_PUBLISHABLE_KEY=$VITE_CLERK_PUBLISHABLE_KEY --build-arg VITE_GOOGLE_AI_API_KEY=$VITE_GOOGLE_AI_API_KEY -t ghcr.io/obsidianmaximus/kenshi_resumes_ai_powered:latest .
+          docker build --build-arg VITE_STRAPI_API_KEY=$VITE_STRAPI_API_KEY --build-arg VITE_BASE_URL=$VITE_BASE_URL --build-arg VITE_CLERK_PUBLISHABLE_KEY=$VITE_CLERK_PUBLISHABLE_KEY --build-arg VITE_GOOGLE_AI_API_KEY=$VITE_GOOGLE_AI_API_KEY -t ghcr.io/obsidianmaximus/kenshi-resumes-ai-powered:latest .
 
       - name: Push Docker image to GHCR
         run: |
-          docker push ghcr.io/obsidianmaximus/kenshi_resumes_ai_powered:latest
+          docker push ghcr.io/obsidianmaximus/kenshi-resumes-ai-powered:latest
