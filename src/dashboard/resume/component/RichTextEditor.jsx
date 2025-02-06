@@ -113,7 +113,7 @@ function RichTextEditor({ onRichTextEditorChange, index, defaultValue }) {
                         <BtnClearFormatting />
                         <HtmlButton />
                         <Separator />
-                        <BtnStyles />
+                        <BtnStyles style={{ color: '#333', backgroundColor: '#fff' }} />
                     </Toolbar>
                 </Editor>
             </EditorProvider>

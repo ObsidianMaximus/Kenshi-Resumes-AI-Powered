@@ -57,7 +57,15 @@ function Experience() {
     }, [experienceList]);
 
     const AddNewExperience = () => {
-        setExperienceList([...experienceList, formField]);
+        setExperienceList([...experienceList, {
+            title: '',
+            companyName: '',
+            city: '',
+            state: '',
+            startDate: '',
+            endDate: '',
+            workSummery: ''
+        }]);
         console.log(experienceList);
 
     }
