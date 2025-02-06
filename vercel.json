@@ -1,13 +1,19 @@
 {
     "version": 2,
-    "routes": [
+    "builds": [
         {
-            "src": "/my-resume/:resumeId/view",
-            "dest": "/index.html"
+            "src": "src/main.jsx",
+            "use": "@vercel/static-build"
+        }
+    ],
+    "rewrites": [
+        {
+            "source": "/my-resume/:resumeId/view",
+            "destination": "/index.html"
         },
         {
-            "src": "/:path*",
-            "dest": "/index.html"
+            "source": "/:path*",
+            "destination": "/index.html"
         }
     ]
 }
