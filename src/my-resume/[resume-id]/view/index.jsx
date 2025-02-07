@@ -7,6 +7,7 @@ import { useParams } from 'react-router';
 import { ResumeInfoContext } from '@/context/ResumeInfoContext';
 import { RWebShare } from "react-web-share";
 import html2pdf from 'html2pdf.js';
+import Footer from '@/components/custom/Footer';
 
 function ViewResume() {
     const [resumeInfo, setResumeInfo] = useState();
@@ -56,7 +57,7 @@ function ViewResume() {
                     <Header />
                     <div className='my-10 mx-10 md:mx-20 lg:mx-36'>
                         <h2 className='text-center text-2xl font-medium'>🚀 Your career journey starts now! Here's your polished resume—go land that dream job! 🎯</h2>
-                        <p className='text-center text-gray-600'>You cand download your resume and share it with your friends and family!</p>
+                        <p className='text-center text-gray-600'>You can download your resume and share it with your connections!</p>
                         <div className='flex justify-between px-44 my-10'>
                             <Button onClick={HandleDownload}>Download</Button>
                             <RWebShare
@@ -80,6 +81,7 @@ function ViewResume() {
                         <ResumePreview />
                     </div>
                 </div>
+                <Footer />
             </ResumeInfoContext.Provider>
         </div>
     )
