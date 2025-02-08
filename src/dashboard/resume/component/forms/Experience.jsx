@@ -21,7 +21,7 @@ const formField = {
     workSummery: ''
 };
 
-function Experience() {
+function Experience({ enabledNext }) {
     const startDateRef = useRef(null);
     const endDateRef = useRef(null);
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
@@ -44,6 +44,8 @@ function Experience() {
         newEntries[index][name] = value;
         setExperienceList(newEntries);
     }
+
+    useEffect(() => enabledNext(false), []);
 
     useEffect(() => {
         if (resumeInfo === null || undefined) setExperienceList([formField]);
@@ -108,7 +110,7 @@ function Experience() {
         }, (error) => {
             setLoading(false);
         })
-
+        enabledNext(true);
     }
 
     return (

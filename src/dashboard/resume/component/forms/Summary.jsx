@@ -34,6 +34,8 @@ function Summary({ enabledNext }) {
         setLoading(false);
     }
 
+    useEffect(() => enabledNext(false), []);
+
     useEffect(() => {
         summery && setResumeInfo({
             ...resumeInfo,
@@ -51,7 +53,6 @@ function Summary({ enabledNext }) {
         }
         GlobalApi.UpdateResumeDetail(params?.resumeId, data).then(res => {
             console.log(res);
-            enabledNext(true);
             setLoading(false);
             toast("Your details have been saved successfully");
             var sound = new Howl({
@@ -63,6 +64,7 @@ function Summary({ enabledNext }) {
             console.log(err);
             setLoading(false);
         });
+        enabledNext(true);
     }
 
     return (

@@ -17,10 +17,11 @@ function PersonalDetails({ enabledNext }) {
 
     useEffect(() => {
         console.log(params);
+        enabledNext(false);
     }, []);
 
     const handleInputChange = (e) => {
-        enabledNext(false);
+        // enabledNext(false);
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -40,7 +41,7 @@ function PersonalDetails({ enabledNext }) {
         };
         GlobalApi.UpdateResumeDetail(params?.resumeId, data).then(res => {
             console.log(res);
-            enabledNext(true);
+            // enabledNext(true);
             setLoading(false);
             toast("Your details have been saved successfully");
             var sound = new Howl({

@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import { useRef } from 'react';
 import { Howl, Howler } from 'howler';
 
-function Education() {
+function Education({ enabledNext }) {
     const startDateRef = useRef(null);
     const endDateRef = useRef(null);
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
@@ -73,7 +73,10 @@ function Education() {
             sound.play();
             setLoading(false);
         });
+        enabledNext(true);
     }
+
+    useEffect(() => enabledNext(false), []);
 
     useEffect(() => {
         console.log(educationalList);

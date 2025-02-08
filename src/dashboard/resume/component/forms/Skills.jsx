@@ -13,7 +13,7 @@ import GlobalApi from './../../../../../service/GlobalApi';
 import { useParams } from 'react-router';
 import { Howl, Howler } from 'howler';
 
-function Skills() {
+function Skills({ enabledNext }) {
     const { resumeId } = useParams();
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
     const [loading, setLoading] = useState(false);
@@ -64,7 +64,10 @@ function Skills() {
             sound.play();
             setLoading(false);
         });
+        enabledNext(true);
     }
+
+    useEffect(() => enabledNext(false), []);
 
     useEffect(() => {
         setResumeInfo({
