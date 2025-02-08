@@ -16,9 +16,6 @@ function ViewResume() {
 
     useEffect(() => {
         GetResumeInfo();
-        // Play audio on page load
-        const audio = new Audio('/audio.mp3'); // Ensure audio.mp3 is in the public folder
-        audio.play().catch(error => console.log("Autoplay blocked:", error));
     }, []);
 
     const GetResumeInfo = () => {
