@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  app:
+    image: ghcr.io/obsidianmaximus/kenshi-resumes-ai-powered:latest
+    container_name: kenshi-resumes-ai-powered
+    ports:
+      # You can change the host port, i.e, 80 to whatever you want.
+      - "80:4173"
+    environment:
+      # Environment variables for dynamic runtime configuration.
+      # These values will be injected into your runtime config file
+      # Set these values to your actual values
+      VITE_CLERK_PUBLISHABLE_KEY: "your_actual_publishable_key"
+      VITE_GOOGLE_AI_API_KEY: "your_google_api_key"
+      VITE_BASE_URL: "https://your-api.com"
+      VITE_STRAPI_API_KEY: "your_strapi_api_key"
+    restart: unless-stopped  # Automatically restart the container unless it is explicitly stopped
