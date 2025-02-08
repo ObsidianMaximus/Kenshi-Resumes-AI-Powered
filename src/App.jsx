@@ -18,7 +18,7 @@ function App() {
   }
 
   return (
-    <div>
+    <div className="overflow-hidden">
       <Header />
       {/* this is where the home component will be rendered */}
       <Outlet />

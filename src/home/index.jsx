@@ -8,7 +8,7 @@ import { useUser } from '@clerk/clerk-react'
 function Home() {
     const { isSignedIn } = useUser();
     return (
-        <div className='bg-gradient-to-r from-indigo-200 to-yellow-100'>
+        <div className='bg-gradient-to-r from-red-200 to-yellow-200'>
             <Header />
             <div className='h-screen flex justify-center items-center'>
                 <div className='flex flex-col gap-2'>
