@@ -28,6 +28,7 @@ function Experience() {
     const [loading, setLoading] = useState(false);
     const params = useParams();
     const [experienceList, setExperienceList] = useState([formField]);
+    const [value, setValue] = useState('');//value of the editor
 
     {/*index of the particular experience div and name and value of a particular experience role 
     newEntries now holds:

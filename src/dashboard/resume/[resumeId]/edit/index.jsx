@@ -27,7 +27,7 @@ function EditResume() {
 
     return (
         <ResumeInfoContext.Provider value={{ resumeInfo, setResumeInfo }}>
-            <div className='h-screen overflow-scroll grid grid-cols-1 md:grid-cols-2 p-10 gap-10 bg-gradient-to-r from-red-200 to-yellow-200'>
+            <div className='h-screen overflow-scroll scroll-smooth grid grid-cols-1 md:grid-cols-2 p-10 gap-10 bg-gradient-to-r from-red-200 to-yellow-200'>
                 {/*Form section */}
                 <FormSection />
                 {/*Preview section */}

@@ -94,7 +94,7 @@ function Summary({ enabledNext }) {
 
             {aiGeneratedSummaryList &&
                 <div>
-                    <h2 className='font-bold text-lg'>Suggestions:</h2>
+                    <h2 className='font-bold text-lg my-4'>🤖 Suggestions:</h2>
                     {aiGeneratedSummaryList.map((item, index) => (
                         <div key={index}
                             onClick={() => setSummery(item?.summary)}
