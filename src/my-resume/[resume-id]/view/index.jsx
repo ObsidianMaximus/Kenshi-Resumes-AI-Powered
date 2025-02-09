@@ -8,6 +8,7 @@ import { ResumeInfoContext } from '@/context/ResumeInfoContext';
 import { RWebShare } from "react-web-share";
 import html2pdf from 'html2pdf.js';
 import Footer from '@/components/custom/Footer';
+import { Download } from 'lucide-react';
 
 function ViewResume() {
     const [resumeInfo, setResumeInfo] = useState();
@@ -51,15 +52,15 @@ function ViewResume() {
     }
 
     return (
-        <div className='bg-gradient-to-r from-red-200 to-yellow-200'>
+        <div className='w-screen bg-gradient-to-r from-red-200 to-yellow-200'>
             <ResumeInfoContext.Provider value={{ resumeInfo, setResumeInfo }}>
                 <div id="non-printable">
                     <Header />
                     <div className='my-10 mx-10 md:mx-20 lg:mx-36'>
                         <h2 className='text-center text-2xl font-medium'>🚀 Your career journey starts now! Here's your polished resume—go land that dream job! 🎯</h2>
                         <p className='text-center text-gray-600'>You can download your resume and share it with your connections!</p>
-                        <div className='flex flex-col items-center sm:flex-row sm:justify-between gap-2 sm:gap-0 px-44 my-10'>
-                            <Button onClick={HandleDownload}>Download</Button>
+                        <div className='w-100 flex flex-col items-center sm:flex-row sm:justify-between gap-2 sm:gap-0 sm:px-44 my-10'>
+                            <Button onClick={HandleDownload}>Download<Download /></Button>
                             <RWebShare
                                 data={{
                                     text: "Hey guys!This is my resume,have a look please...",

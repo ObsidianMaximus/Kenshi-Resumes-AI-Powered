@@ -50,7 +50,7 @@ function ResumeCardItem({ resume, refreshData }) {
     return (
         // <Link to={'/dashboard/resume/' + resume.documentId + '/edit'}>
         <div>
-            <div className='p-14 bg-secondary flex justify-center gap-2 items-center h-[280px] border border-primary rounded-lg hover:scale-105 shadow-lg  hover:shadow-md shadow-primary transition-all cursor-pointer bg-gradient-to-r from-yellow-200 to-pink-400'>
+            <div className='p-14 bg-secondary flex flex-col sm:flex-row justify-center gap-2 items-center h-[280px] border border-primary rounded-lg hover:scale-105 shadow-lg  hover:shadow-md shadow-primary transition-all cursor-pointer bg-gradient-to-r from-yellow-200 to-pink-400'>
                 <div className='flex flex-col gap-2'>
                     <img src="cardLogo.png" width={60} height={60} alt="card-logo" />
                     <DropdownMenu>
