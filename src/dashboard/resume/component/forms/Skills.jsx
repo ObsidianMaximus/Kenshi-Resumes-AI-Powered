@@ -110,7 +110,7 @@ function Skills({ enabledNext }) {
                     ))}
                 </div>
                 <div className='flex justify-between'>
-                    <div className='flex gap-2'>
+                    <div className='sm:flex-row gap-2 flex flex-col'>
                         <Button variant="outline" onClick={AddNewSkills} className="text-primary">+ Add More Skills</Button>
                         <Button variant="outline" onClick={RemoveSkills} className="text-primary">- Remove</Button>
                     </div>

@@ -143,7 +143,7 @@ function Education({ enabledNext }) {
 
             </div>
             <div className='flex justify-between'>
-                <div className='flex gap-2'>
+                <div className='sm:flex-row gap-2 flex flex-col'>
                     <Button variant="outline" onClick={AddNewEducation} className="text-primary">+ Add More Education</Button>
                     <Button variant="outline" onClick={RemoveEducation} className="text-primary">- Remove</Button>
                 </div>

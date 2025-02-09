@@ -174,7 +174,7 @@ function Experience({ enabledNext }) {
                 </div>
 
                 <div className='flex justify-between'>
-                    <div className='flex gap-2'>
+                    <div className='sm:flex-row gap-2 flex flex-col'>
                         <Button variant="outline" onClick={AddNewExperience} className="text-primary">+ Add More Experience</Button>
                         <Button variant="outline" onClick={RemoveExperience} className="text-primary">- Remove</Button>
                     </div>

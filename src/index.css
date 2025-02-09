@@ -26,6 +26,14 @@
   margin: 0mm;
 }
 
+/* Hide scrollbar for Webkit (Chrome, Safari) */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for Firefox */
+.hide-scrollbar {
+  scrollbar-width: none;
+}
 
 
 /*fixed rich-text-editor styling issue*/
