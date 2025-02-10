@@ -53,7 +53,7 @@ function ViewResume() {
 
     return (
         <div className=' bg-gradient-to-r from-red-200 to-yellow-200'>
-            <div className='bg-[url("https://www.transparenttextures.com/patterns/food.png")] w-screen'>
+            <div className='bg-[url("../../textures/food.png")] w-screen'>
                 <ResumeInfoContext.Provider value={{ resumeInfo, setResumeInfo }}>
                     <div id="non-printable">
                         <Header />

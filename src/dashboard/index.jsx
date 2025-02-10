@@ -23,7 +23,7 @@ function Dashboard() {
 
     return (
         <div className='bg-gradient-to-r from-red-200 to-yellow-200' >
-            <div className='bg-[url("https://www.transparenttextures.com/patterns/diagonal-striped-brick.png")] h-screen overflow-y-scroll scroll-smooth p-10 md:px-20 lg:px-32'>
+            <div className='bg-[url("../../textures/diagonal-striped-brick.png")] h-screen overflow-y-scroll scroll-smooth p-10 md:px-20 lg:px-32'>
                 <h2 className='font-bold text-3xl'>My Resume</h2>
                 <p>
                     "Craft your perfect resume effortlessly with AI-powered precision!"
