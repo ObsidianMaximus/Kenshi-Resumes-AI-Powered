@@ -51,7 +51,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     {/* <App /> */}
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY} signUpFallbackRedirectUrl='/' signInFallbackRedirectUrl='/' afterSignOutUrl="/">
       <RouterProvider router={router} />
     </ClerkProvider>
   </StrictMode>
