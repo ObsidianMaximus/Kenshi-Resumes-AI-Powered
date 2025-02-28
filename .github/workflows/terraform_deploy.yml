@@ -4,7 +4,8 @@ on:
   push:
     paths:
       - 'terraform/**'  # Runs only if Terraform files change
-
+  workflow_dispatch:
+    
 jobs:
   terraform:
     runs-on: ubuntu-latest
