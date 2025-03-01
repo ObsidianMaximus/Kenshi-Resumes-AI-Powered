@@ -12,7 +12,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "kenshi_ec2" {
-  ami           = "ami-0fcfcdc5efc25e0bc" # Ubuntu 24.04
+  ami           = var.ami_id # Ubuntu 24.04
   instance_type = "t2.micro"
   key_name      = var.ssh_key_name
   security_groups = [aws_security_group.allow_http_ssh.name]
@@ -21,10 +21,6 @@ resource "aws_instance" "kenshi_ec2" {
     Name = "Kenshi-EC2"
   }
 
-  # Prevent instance recreation unless the key changes
-  lifecycle {
-    ignore_changes = [ami]
-  }
 }
 
 resource "aws_security_group" "allow_http_ssh" {
