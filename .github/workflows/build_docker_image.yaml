@@ -10,6 +10,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      AWS_REGION: 'ap-south-1'
+
     steps:
       - name: Checkout main branch
         uses: actions/checkout@v3
@@ -33,20 +36,52 @@ jobs:
       - name: Push Docker image to GHCR
         run: |
           docker push ghcr.io/obsidianmaximus/kenshi-resumes-ai-powered:latest
-      
-      - name: AWS SSM Send-Command
-        uses: peterkimzz/aws-ssm-send-command@master
-        id: ssm
+    
+          
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      AWS_REGION: 'ap-south-1'
+
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-            aws-region: ap-south-1
-            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            instance-ids: i-0fa37f58aa13d0b16
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Get Instance ID
+        id: get-instance
+        run: |
+          # Fetch instance ID by tag (if not stored in secrets)
+          INSTANCE_ID=$(aws ec2 describe-instances \
+            --filters "Name=tag:Name,Values=SSM-Managed-Instance" \
+            --query "Reservations[].Instances[].InstanceId" --output text)
+          echo "INSTANCE_ID=$INSTANCE_ID" >> $GITHUB_ENV
+
+      - name: Execute Docker and Echo Commands
+        run: |
+          aws ssm send-command \
+            --instance-ids ${{ env.INSTANCE_ID }}
+            --document-name "AWS-RunShellScript" \
+            --parameters '{"commands":["docker pull ghcr.io/obsidianmaximus/kenshi-resumes-ai-powered:latest", "docker stop kenshi", "docker rm kenshi", "docker run --name=kenshi --restart=unless-stopped -p 80:4173 -e VITE_CLERK_PUBLISHABLE_KEY='${{ secrets.VITE_CLERK_PUBLISHABLE_KEY }}' -e VITE_GOOGLE_AI_API_KEY='${{ secrets.VITE_GOOGLE_AI_API_KEY }}' -e VITE_STRAPI_API_KEY='${{ secrets.VITE_STRAPI_API_KEY }}' -e VITE_BASE_URL='${{ secrets.VITE_BASE_URL }}' ghcr.io/obsidianmaximus/kenshi-resumes-ai-powered:latest]}'
+  # deploy:
+  #   steps:
+  #     - name: AWS SSM Send-Command
+  #       uses: peterkimzz/aws-ssm-send-command@master
+  #       id: ssm
+  #       with:
+  #           aws-region: ${{ env.AWS_REGION }}
+  #           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #           instance-ids: %^*&$*
   
-            working-directory: /home/ubuntu/
-            command: docker run hello-world
-            comment: Execution by GHA
+  #           working-directory: /home/ubuntu/
+  #           command: docker run hello-world
+  #           comment: Execution by GHA
   
-        # Catch SSM outputs
-      - name: Get the outputs
-        run: echo "The Command id is ${{ steps.ssm.outputs.command-id }}"
+  #       # Catch SSM outputs
+  #     - name: Get the outputs
+  #       run: echo "The Command id is ${{ steps.ssm.outputs.command-id }}"
