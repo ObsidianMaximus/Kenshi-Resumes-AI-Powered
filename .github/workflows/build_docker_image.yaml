@@ -69,7 +69,7 @@ jobs:
                 "docker pull ghcr.io/obsidianmaximus/kenshi-resumes-ai-powered:latest",
                 "docker stop kenshi || true",
                 "docker rm kenshi || true",
-                "docker run -d --name=kenshi --restart=unless-stopped -p 80:4173 -e VITE_CLERK_PUBLISHABLE_KEY="${{ secrets.VITE_CLERK_PUBLISHABLE_KEY }}" -e VITE_GOOGLE_AI_API_KEY="${{ secrets.VITE_GOOGLE_AI_API_KEY }}" -e VITE_STRAPI_API_KEY="${{ secrets.VITE_STRAPI_API_KEY }}" -e VITE_BASE_URL="${{ secrets.VITE_BASE_URL }}" ghcr.io/obsidianmaximus/kenshi-resumes-ai-powered:latest"
+                "docker run -d --name=kenshi --restart=unless-stopped -p 80:4173 -e VITE_CLERK_PUBLISHABLE_KEY=${{ secrets.VITE_CLERK_PUBLISHABLE_KEY }} -e VITE_GOOGLE_AI_API_KEY=${{ secrets.VITE_GOOGLE_AI_API_KEY }} -e VITE_STRAPI_API_KEY=${{ secrets.VITE_STRAPI_API_KEY }} -e VITE_BASE_URL=${{ secrets.VITE_BASE_URL }} ghcr.io/obsidianmaximus/kenshi-resumes-ai-powered:latest"
               ]
             }'        
     # deploy:
