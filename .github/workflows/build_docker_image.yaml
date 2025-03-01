@@ -39,6 +39,7 @@ jobs:
     
           
   deploy:
+    needs: build
     runs-on: ubuntu-latest
 
     env:
@@ -61,13 +62,27 @@ jobs:
             --query "Reservations[].Instances[].InstanceId" --output text)
           echo "INSTANCE_ID=$INSTANCE_ID" >> $GITHUB_ENV
 
-      - name: Execute Docker and Echo Commands
-        run: |
-          aws ssm send-command \
-            --instance-ids ${{ env.INSTANCE_ID }}
-            --document-name "AWS-RunShellScript" \
-            --parameters '{"commands":["docker pull ghcr.io/obsidianmaximus/kenshi-resumes-ai-powered:latest", "docker stop kenshi", "docker rm kenshi", "docker run --name=kenshi --restart=unless-stopped -p 80:4173 -e VITE_CLERK_PUBLISHABLE_KEY='${{ secrets.VITE_CLERK_PUBLISHABLE_KEY }}' -e VITE_GOOGLE_AI_API_KEY='${{ secrets.VITE_GOOGLE_AI_API_KEY }}' -e VITE_STRAPI_API_KEY='${{ secrets.VITE_STRAPI_API_KEY }}' -e VITE_BASE_URL='${{ secrets.VITE_BASE_URL }}' ghcr.io/obsidianmaximus/kenshi-resumes-ai-powered:latest]}'
-  # deploy:
+          - name: Execute Docker Commands
+          run: |
+            aws ssm send-command \
+              --instance-ids "${{ env.INSTANCE_ID }}" \
+              --document-name "AWS-RunShellScript" \
+              --region ${{ env.AWS_REGION }} \
+              --parameters '{
+                "commands": [
+                  "docker pull ghcr.io/obsidianmaximus/kenshi-resumes-ai-powered:latest",
+                  "docker stop kenshi || true",
+                  "docker rm kenshi || true",
+                  "docker run -d --name=kenshi --restart=unless-stopped -p 80:4173 \
+                    -e VITE_CLERK_PUBLISHABLE_KEY=\"${{ secrets.VITE_CLERK_PUBLISHABLE_KEY }}\" \
+                    -e VITE_GOOGLE_AI_API_KEY=\"${{ secrets.VITE_GOOGLE_AI_API_KEY }}\" \
+                    -e VITE_STRAPI_API_KEY=\"${{ secrets.VITE_STRAPI_API_KEY }}\" \
+                    -e VITE_BASE_URL=\"${{ secrets.VITE_BASE_URL }}\" \
+                    ghcr.io/obsidianmaximus/kenshi-resumes-ai-powered:latest"
+                ]
+              }'
+              
+    # deploy:
   #   steps:
   #     - name: AWS SSM Send-Command
   #       uses: peterkimzz/aws-ssm-send-command@master

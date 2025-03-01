@@ -1,11 +1,11 @@
 terraform {
   backend "s3" {
-    bucket = var.backend_name
+    bucket = "kenshi-artifacts"
     key    = "terraform/terraform.tfstate"
-    region = var.region
+    region = "ap-south-1"
   }
 }
 
 provider "aws" {
-  region = var.region
+  region = "ap-south-1"
 }
