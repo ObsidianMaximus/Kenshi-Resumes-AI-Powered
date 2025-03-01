@@ -49,14 +49,16 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
 
-      - name: Get Instance ID
+      - name: Get Running Instance ID
         id: get-instance
         run: |
-          INSTANCE_ID=$(aws ec2 describe-instances \
-            --filters "Name=tag:Name,Values=SSM-Managed-Instance" \
-            --query "Reservations[].Instances[].InstanceId" \
-            --output text)
-          echo "INSTANCE_ID=$INSTANCE_ID" >> $GITHUB_ENV
+            INSTANCE_ID=$(aws ec2 describe-instances \
+              --filters \
+                "Name=tag:Name,Values=Kenshi-SSM-Managed-Instance" \
+                "Name=instance-state-name,Values=running" \
+              --query "Reservations[].Instances[].InstanceId" \
+              --output text)
+            echo "INSTANCE_ID=$INSTANCE_ID" >> $GITHUB_ENV
 
       - name: Execute Docker Commands
         run: |
@@ -78,9 +80,9 @@ jobs:
   #       uses: peterkimzz/aws-ssm-send-command@master
   #       id: ssm
   #       with:
-  #           aws-region: ${{ env.AWS_REGION }}
-  #           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #           aws-region:  env.AWS_REGION }}
+  #           aws-access-key-id: ${ secrets.AWS_ACCESS_KEY_ID }}
+  #           aws-secret-access-key: ${ secrets.AWS_SECRET_ACCESS_KEY }}
   #           instance-ids: %^*&$*
   
   #           working-directory: /home/ubuntu/
@@ -89,4 +91,4 @@ jobs:
   
   #       # Catch SSM outputs
   #     - name: Get the outputs
-  #       run: echo "The Command id is ${{ steps.ssm.outputs.command-id }}"
+  #       run: echo "The Command id is ${ steps.ssm.outputs.command-id }}"
