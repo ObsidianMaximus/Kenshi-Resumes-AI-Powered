@@ -13,7 +13,7 @@ import GlobalApi from './../../../../../service/GlobalApi';
 import { useParams } from 'react-router';
 import { Howl, Howler } from 'howler';
 
-function Skills() {
+function Skills({ enabledNext }) {
     const { resumeId } = useParams();
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
     const [loading, setLoading] = useState(false);
@@ -64,7 +64,10 @@ function Skills() {
             sound.play();
             setLoading(false);
         });
+        enabledNext(true);
     }
+
+    useEffect(() => enabledNext(false), []);
 
     useEffect(() => {
         setResumeInfo({
@@ -86,7 +89,7 @@ function Skills() {
     }, []);
     return (
         <div>
-            <div className='p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10'>
+            <div className='bg-white p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10'>
                 <h2 className='font-bold text-lg'>Skills</h2>
                 <p>Add Your Top Skills</p>
 
@@ -107,7 +110,7 @@ function Skills() {
                     ))}
                 </div>
                 <div className='flex justify-between'>
-                    <div className='flex gap-2'>
+                    <div className='sm:flex-row gap-2 flex flex-col'>
                         <Button variant="outline" onClick={AddNewSkills} className="text-primary">+ Add More Skills</Button>
                         <Button variant="outline" onClick={RemoveSkills} className="text-primary">- Remove</Button>
                     </div>

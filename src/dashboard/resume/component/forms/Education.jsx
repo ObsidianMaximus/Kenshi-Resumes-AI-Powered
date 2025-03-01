@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import { useRef } from 'react';
 import { Howl, Howler } from 'howler';
 
-function Education() {
+function Education({ enabledNext }) {
     const startDateRef = useRef(null);
     const endDateRef = useRef(null);
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
@@ -73,7 +73,10 @@ function Education() {
             sound.play();
             setLoading(false);
         });
+        enabledNext(true);
     }
+
+    useEffect(() => enabledNext(false), []);
 
     useEffect(() => {
         console.log(educationalList);
@@ -100,7 +103,7 @@ function Education() {
     }, []);
 
     return (
-        <div className='p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10'>
+        <div className='bg-white p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10'>
             <h2 className='font-bold text-lg'>Education</h2>
             <p>Please add your educational details</p>
 
@@ -140,7 +143,7 @@ function Education() {
 
             </div>
             <div className='flex justify-between'>
-                <div className='flex gap-2'>
+                <div className='sm:flex-row gap-2 flex flex-col'>
                     <Button variant="outline" onClick={AddNewEducation} className="text-primary">+ Add More Education</Button>
                     <Button variant="outline" onClick={RemoveEducation} className="text-primary">- Remove</Button>
                 </div>

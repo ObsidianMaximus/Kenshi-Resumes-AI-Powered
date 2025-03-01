@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --breakpoint-xs: 30rem;
+    --breakpoint-2xl: 100rem;
+    --breakpoint-3xl: 120rem;
+  }
+}
+
+
 /*definition for downloading pdf*/
 @media print{
   #non-printable{
@@ -26,6 +35,14 @@
   margin: 0mm;
 }
 
+/* Hide scrollbar for Webkit (Chrome, Safari) */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for Firefox */
+.hide-scrollbar {
+  scrollbar-width: none;
+}
 
 
 /*fixed rich-text-editor styling issue*/
@@ -52,7 +69,6 @@ ol {
 }
 
 /* ... */
-
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

@@ -34,6 +34,8 @@ function Summary({ enabledNext }) {
         setLoading(false);
     }
 
+    useEffect(() => enabledNext(false), []);
+
     useEffect(() => {
         summery && setResumeInfo({
             ...resumeInfo,
@@ -51,7 +53,6 @@ function Summary({ enabledNext }) {
         }
         GlobalApi.UpdateResumeDetail(params?.resumeId, data).then(res => {
             console.log(res);
-            enabledNext(true);
             setLoading(false);
             toast("Your details have been saved successfully");
             var sound = new Howl({
@@ -63,11 +64,12 @@ function Summary({ enabledNext }) {
             console.log(err);
             setLoading(false);
         });
+        enabledNext(true);
     }
 
     return (
         <div>
-            <div className='p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10'>
+            <div className='bg-white p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10'>
                 <h2 className='font-bold text-lg'>Summary</h2>
                 <p>Please add Summary for your job title</p>
 
@@ -94,7 +96,7 @@ function Summary({ enabledNext }) {
 
             {aiGeneratedSummaryList &&
                 <div>
-                    <h2 className='font-bold text-lg'>Suggestions:</h2>
+                    <h2 className='font-bold text-lg my-4'>🤖 Suggestions:</h2>
                     {aiGeneratedSummaryList.map((item, index) => (
                         <div key={index}
                             onClick={() => setSummery(item?.summary)}

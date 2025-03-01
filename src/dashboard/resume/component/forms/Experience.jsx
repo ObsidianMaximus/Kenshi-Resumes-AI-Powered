@@ -21,13 +21,14 @@ const formField = {
     workSummery: ''
 };
 
-function Experience() {
+function Experience({ enabledNext }) {
     const startDateRef = useRef(null);
     const endDateRef = useRef(null);
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
     const [loading, setLoading] = useState(false);
     const params = useParams();
     const [experienceList, setExperienceList] = useState([formField]);
+    const [value, setValue] = useState('');//value of the editor
 
     {/*index of the particular experience div and name and value of a particular experience role 
     newEntries now holds:
@@ -43,6 +44,8 @@ function Experience() {
         newEntries[index][name] = value;
         setExperienceList(newEntries);
     }
+
+    useEffect(() => enabledNext(false), []);
 
     useEffect(() => {
         if (resumeInfo === null || undefined) setExperienceList([formField]);
@@ -107,12 +110,12 @@ function Experience() {
         }, (error) => {
             setLoading(false);
         })
-
+        enabledNext(true);
     }
 
     return (
         <div>
-            <div className='p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10'>
+            <div className='bg-white p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10'>
                 <h2 className='font-bold text-lg'>Professional Experience</h2>
                 <p>Please add your previous Job Experience</p>
                 <div>
@@ -171,7 +174,7 @@ function Experience() {
                 </div>
 
                 <div className='flex justify-between'>
-                    <div className='flex gap-2'>
+                    <div className='sm:flex-row gap-2 flex flex-col'>
                         <Button variant="outline" onClick={AddNewExperience} className="text-primary">+ Add More Experience</Button>
                         <Button variant="outline" onClick={RemoveExperience} className="text-primary">- Remove</Button>
                     </div>
