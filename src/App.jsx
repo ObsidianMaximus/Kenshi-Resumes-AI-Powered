@@ -1,7 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import { Button } from "@/components/ui/button"
 import './App.css'
 import { Navigate, Outlet } from 'react-router'
 import { useUser } from '@clerk/clerk-react'
@@ -9,6 +6,7 @@ import Header from './components/custom/Header'
 import { Toaster } from "@/components/ui/sonner"
 
 function App() {
+  const [theme, setTheme] = useState('light');
   const { user, isLoaded, isSignedIn } = useUser();//user hook
 
   //user will be navigated to sign-in page on renering '/' route
