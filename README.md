@@ -1,6 +1,6 @@
 
 # [Link to Applicaion--->](https://kenshi-resumes-ai-powered.vercel.app/)
-# [Production Environment](http://kenshi.krishnayadav.xyz/) deploment by [Obsidian Maxismus](Github.com/obsidianmaximus)
+# [Production Environment](http://kenshi.krishnayadav.xyz/) deployment by [Obsidian Maxismus](Github.com/obsidianmaximus)
 
 <hr>
 
