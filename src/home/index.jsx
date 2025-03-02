@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button'
 import { Link } from 'react-router'
 import { BookMarked, ListStart } from 'lucide-react'
 import { useUser } from '@clerk/clerk-react'
-import Footer from '@/components/custom/Footer'
 
 function Home() {
     const { isSignedIn } = useUser();
