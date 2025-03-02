@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import SignInPage from './auth/sign-in'
+import SignUpPage from './auth/sign-up'
 import Home from './home'
 import Dashboard from './dashboard'
 import { ClerkProvider } from '@clerk/clerk-react'
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
   {
     path: '/auth/sign-in',
     element: <SignInPage />,
+  },
+  {
+    path: '/auth/sign-up',
+    element: <SignUpPage />,
   },
   {
     path: 'my-resume/:resumeId/view',

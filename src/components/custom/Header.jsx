@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import { UserButton } from '@clerk/clerk-react'
 import { useUser } from '@clerk/clerk-react'
 
-function Header() {
+function Header({ state }) {
     const { user, isSignedIn, isLoaded } = useUser();
     return (
         <div className='bg-gradient-to-r from-red-200 to-yellow-200 relative'>
@@ -19,8 +19,8 @@ function Header() {
                             </Link>
                             <UserButton />
                         </div> :
-                        <Link to={'/auth/sign-in'}>    {/*from react router*/}
-                            <Button className="bg-gradient-to-r from-violet-400 to-indigo-600">Get Started</Button>
+                        <Link to={state ? '/' : '/auth/sign-in'}>    {/*from react router*/}
+                            <Button className="bg-gradient-to-r from-violet-400 to-indigo-600">{state ? 'Go back to Home' : 'Get Started'}</Button>
                         </Link>
                 }
             </div >
