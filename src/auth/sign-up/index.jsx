@@ -14,7 +14,7 @@ function SignUpPage() {
         <>
             <Header state={signIn} />
             <div className='bg-gradient-to-r from-red-200 to-yellow-200'>
-                <div className='bg-[url("../../textures/food.png")] flex justify-center items-center'>
+                <div className='h-screen bg-[url("../../textures/food.png")] flex justify-center items-center'>
                     <div className='my-20 shadow-lg shadow-primary transition-all rounded-lg'>
                         <SignUp
                             signInForceRedirectUrl='/'
