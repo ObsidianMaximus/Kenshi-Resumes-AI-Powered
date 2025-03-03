@@ -10,5 +10,29 @@
     <div id="root"></div>
     <!-- <script src="html2pdf.bundle.min.js"></script> -->
     <script type="module" src="/src/main.jsx"></script>
+    <script src='https://cdn.jotfor.ms/s/umd/latest/for-embedded-agent.js'></script>
+<script>
+  window.addEventListener("DOMContentLoaded", function() {
+    window.AgentInitializer.init({
+      agentRenderURL: "https://agent.jotform.com/01955d392d7d710a83bb8c00d53c84d4ff5a",
+      rootId: "JotformAgent-01955d392d7d710a83bb8c00d53c84d4ff5a",
+      formID: "01955d392d7d710a83bb8c00d53c84d4ff5a",
+      queryParams: ["skipWelcome=1", "maximizable=1"],
+      domain: "https://www.jotform.com",
+      isDraggable: false,
+      background: "linear-gradient(180deg, #642CC7 0%, #642CC7 100%)",
+      buttonBackgroundColor: "#672000",
+      buttonIconColor: "#FFFFFF",
+      variant: false,
+      customizations: {
+        "greeting": "Yes",
+        "greetingMessage": "Hi! Welcome to Kenshi Resumes ,how can I assist you?",
+        "pulse": "Yes",
+        "position": "right"
+      },
+      isVoice: undefined
+    });
+  });
+</script> 
   </body>
 </html>
