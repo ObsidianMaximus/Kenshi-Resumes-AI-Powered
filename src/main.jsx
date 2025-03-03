@@ -11,6 +11,7 @@ import { ClerkProvider } from '@clerk/clerk-react'
 import EditResume from './dashboard/resume/[resumeId]/edit'
 import ViewResume from './my-resume/[resume-id]/view'
 import { ThemeContext } from './context/ThemeContext'
+import { CustomThemeProvider } from './context/ThemeContext'
 import { useState } from 'react'
 import { ThemeProvider } from "@/components/ui/theme-provider"
 
@@ -60,11 +61,11 @@ const router = createBrowserRouter([
 function Root() {
   const [theme, setTheme] = useState('light');
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <CustomThemeProvider value={{ theme, setTheme }}>
       <ClerkProvider publishableKey={PUBLISHABLE_KEY} signUpFallbackRedirectUrl='/' signInFallbackRedirectUrl='/' afterSignOutUrl="/">
         <RouterProvider router={router} />
       </ClerkProvider>
-    </ThemeContext.Provider>
+    </CustomThemeProvider>
   )
 }
 createRoot(document.getElementById('root')).render(
