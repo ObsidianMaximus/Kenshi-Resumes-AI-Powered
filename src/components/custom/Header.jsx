@@ -6,6 +6,7 @@ import { useUser } from '@clerk/clerk-react'
 import { ThemeContext } from '../../context/ThemeContext'
 import { useContext } from 'react'
 import { ModeToggle } from '../ui/mode-toggle'
+import { light, dark } from '@clerk/themes'
 
 function Header({ state }) {
     const { user, isSignedIn, isLoaded } = useUser();
@@ -22,9 +23,19 @@ function Header({ state }) {
                         <div className='flex gap-2 items-center'>
                             <ModeToggle />
                             <Link to={'/dashboard'}>
-                                <Button variant="outline" className={(theme === 'dark') ? 'text-rgba(0,191,255,0.8)' : ''}>Dashboard Button</Button>
+                                <Button variant="outline" className={(theme === 'dark') ? 'text-[rgba(0,191,255,0.8)]' : ''}>Dashboard Button</Button>
                             </Link>
-                            <UserButton />
+                            <UserButton
+                                appearance={
+                                    (theme === 'dark') ?
+                                        {
+                                            baseTheme: dark,
+                                        }
+                                        :
+                                        {
+                                            baseTheme: light,
+                                        }}
+                            />
                         </div> :
                         <div className='flex gap-2 items-center'>
                             <ModeToggle />

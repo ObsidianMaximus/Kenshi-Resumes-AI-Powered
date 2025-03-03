@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import { StrictMode, useContext } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
@@ -14,6 +14,8 @@ import { ThemeContext } from './context/ThemeContext'
 import { CustomThemeProvider } from './context/ThemeContext'
 import { useState } from 'react'
 import { ThemeProvider } from "@/components/ui/theme-provider"
+import { dark, shadesOfPurple } from '@clerk/themes'
+import { useEffect } from 'react'
 
 // Import your Publishable Key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
@@ -59,10 +61,19 @@ const router = createBrowserRouter([
 
 //wrapper component
 function Root() {
-  const [theme, setTheme] = useState('light');
+  const { theme, setTheme } = useContext(ThemeContext);
+  useEffect(() => {
+    console.log(theme);
+    ;
+  }, []);
   return (
     <CustomThemeProvider value={{ theme, setTheme }}>
-      <ClerkProvider publishableKey={PUBLISHABLE_KEY} signUpFallbackRedirectUrl='/' signInFallbackRedirectUrl='/' afterSignOutUrl="/">
+      <ClerkProvider
+        publishableKey={PUBLISHABLE_KEY}
+        signUpFallbackRedirectUrl='/'
+        signInFallbackRedirectUrl='/'
+        afterSignOutUrl="/"
+      >
         <RouterProvider router={router} />
       </ClerkProvider>
     </CustomThemeProvider>
