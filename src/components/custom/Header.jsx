@@ -5,21 +5,11 @@ import { UserButton } from '@clerk/clerk-react'
 import { useUser } from '@clerk/clerk-react'
 import { ThemeContext } from '../../context/ThemeContext'
 import { useContext } from 'react'
+import { ModeToggle } from '../ui/mode-toggle'
 
 function Header({ state }) {
     const { user, isSignedIn, isLoaded } = useUser();
     const { theme, setTheme } = useContext(ThemeContext);
-
-    useEffect(() => {
-        console.log('Theme:', theme)
-    }, [theme]);
-
-    const handleThemeChange = () => {
-        if (theme === 'dark')
-            setTheme('light');
-        else
-            setTheme('dark');
-    }
 
     return (
         <div className={(theme === 'light') ? 'bg-gradient-to-r from-red-200 to-yellow-200 relative' : 'bg-[#000]'}>
@@ -29,7 +19,7 @@ function Header({ state }) {
                 {
                     isSignedIn ?
                         <div className='flex gap-2 items-center'>
-                            <Button className={(theme === 'dark') ? "text-black" : ""} variant="outline" onClick={handleThemeChange}>Click to change theme</Button>
+                            <ModeToggle />
                             <Link to={'/dashboard'}>
                                 <Button variant="outline">Dashboard Button</Button>
                             </Link>

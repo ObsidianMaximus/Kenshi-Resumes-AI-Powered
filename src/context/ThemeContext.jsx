@@ -3,3 +3,4 @@ export const ThemeContext = createContext({
     theme: 'light',
     setTheme: () => { } // Placeholder function
 });
+

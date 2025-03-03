@@ -12,6 +12,7 @@ import EditResume from './dashboard/resume/[resumeId]/edit'
 import ViewResume from './my-resume/[resume-id]/view'
 import { ThemeContext } from './context/ThemeContext'
 import { useState } from 'react'
+import { ThemeProvider } from "@/components/ui/theme-provider"
 
 // Import your Publishable Key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
@@ -68,7 +69,9 @@ function Root() {
 }
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {/* <App /> */}
-    <Root />
-  </StrictMode>
+    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+      {/* <App /> */}
+      <Root />
+    </ThemeProvider>
+  </StrictMode >
 )
