@@ -22,7 +22,7 @@ function Header({ state }) {
                         <div className='flex gap-2 items-center'>
                             <ModeToggle />
                             <Link to={'/dashboard'}>
-                                <Button variant="outline">Dashboard Button</Button>
+                                <Button variant="outline" className={(theme === 'dark') ? 'text-rgba(0,191,255,0.8)' : ''}>Dashboard Button</Button>
                             </Link>
                             <UserButton />
                         </div> :
