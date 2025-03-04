@@ -10,6 +10,7 @@ import { LoaderCircle } from 'lucide-react';
 import { toast } from "sonner";
 import { useRef } from 'react';
 import { Howl, Howler } from 'howler';
+import { ThemeContext } from '@/context/ThemeContext';
 
 const formField = {
     title: '',
@@ -29,7 +30,7 @@ function Experience({ enabledNext }) {
     const params = useParams();
     const [experienceList, setExperienceList] = useState([formField]);
     const [value, setValue] = useState('');//value of the editor
-
+    const { theme } = useContext(ThemeContext);
     {/*index of the particular experience div and name and value of a particular experience role 
     newEntries now holds:
         [
@@ -115,7 +116,7 @@ function Experience({ enabledNext }) {
 
     return (
         <div>
-            <div className='bg-white p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10'>
+            <div className={(theme === 'light') ? 'bg-white p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10' : 'bg-gray-900 p-5 shadow-lg shadow-[rgba(0,191,255,0.8)] rounded-lg border-t-[rgba(0,191,255,0.8)] border-t-4 mt-10'}>
                 <h2 className='font-bold text-lg'>Professional Experience</h2>
                 <p>Please add your previous Job Experience</p>
                 <div>
@@ -175,10 +176,10 @@ function Experience({ enabledNext }) {
 
                 <div className='flex justify-between'>
                     <div className='sm:flex-row gap-2 flex flex-col'>
-                        <Button variant="outline" onClick={AddNewExperience} className="text-primary">+ Add More Experience</Button>
-                        <Button variant="outline" onClick={RemoveExperience} className="text-primary">- Remove</Button>
+                        <Button variant="outline" onClick={AddNewExperience} className={(theme === 'light') ? "text-primary" : "text-[rgba(0,191,255,0.8)] hover:border-[rgba(0,191,255,0.8)]"}>+ Add More Experience</Button>
+                        <Button variant="outline" onClick={RemoveExperience} className={(theme === 'light') ? "text-primary" : "text-[rgba(0,191,255,0.8)] hover:border-[rgba(0,191,255,0.8)]"}>- Remove</Button>
                     </div>
-                    <Button disabled={loading} onClick={() => onSave()}>
+                    <Button disabled={loading} onClick={() => onSave()} className={(theme === 'dark') ? "bg-[rgba(0,191,255,0.8)] hover:bg-white" : ''}>
                         {loading ? <LoaderCircle className='animate-spin' /> : 'Save'}
                     </Button>
                 </div>

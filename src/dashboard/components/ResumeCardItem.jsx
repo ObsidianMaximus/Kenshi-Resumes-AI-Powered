@@ -23,6 +23,8 @@ import {
 import GlobalApi from '../../../service/GlobalApi'
 import { toast } from 'sonner'
 import { Howl, Howler } from 'howler';
+import { useContext } from 'react';
+import { ThemeContext } from '@/context/ThemeContext';
 
 function ResumeCardItem({ resume, refreshData }) {
     const [loading, setLoading] = useState(false);
@@ -31,6 +33,7 @@ function ResumeCardItem({ resume, refreshData }) {
     // const onMenuClick = (url) => {
     //     naviation(url);
     // }
+    const { theme, setTheme } = useContext(ThemeContext);
 
     const onDelete = () => {
         setLoading(true);
@@ -50,11 +53,11 @@ function ResumeCardItem({ resume, refreshData }) {
     return (
         // <Link to={'/dashboard/resume/' + resume.documentId + '/edit'}>
         <div>
-            <div className='p-14 bg-secondary flex flex-col sm:flex-row justify-center gap-2 items-center h-[280px] border border-primary rounded-lg hover:scale-105 shadow-lg  hover:shadow-md shadow-primary transition-all cursor-pointer bg-gradient-to-r from-yellow-200 to-pink-400'>
+            <div className={(theme === 'light') ? 'p-14 bg-secondary flex flex-col sm:flex-row justify-center gap-2 items-center h-[280px] border border-primary rounded-lg hover:scale-105 shadow-lg  hover:shadow-md shadow-primary transition-all cursor-pointer bg-gradient-to-r from-yellow-200 to-pink-400' : 'p-14 bg-secondary flex flex-col sm:flex-row justify-center gap-2 items-center h-[280px] border rounded-lg hover:scale-105 shadow-lg  hover:shadow-md shadow-[rgba(0,191,255,0.8)] transition-all cursor-pointer bg-gradient-to-r from-gray-600 to-gray-900'}>
                 <div className='flex flex-col gap-2'>
-                    <img src="cardLogo.png" width={60} height={60} alt="card-logo" />
+                    <img src={(theme === 'light') ? "cardLogo.png" : "cardLogo2.png"} width={60} height={60} alt="card-logo" />
                     <DropdownMenu>
-                        <DropdownMenuTrigger className='bg-transparent shadow-primary shadow-sm'>
+                        <DropdownMenuTrigger className={(theme === 'light') ? 'bg-transparent shadow-primary shadow-sm' : 'bg-transparent shadow-[rgba(0,191,255,0.8)] shadow-sm'}>
                             <MoreHorizontal className='h-4 w-4 cursor-pointer' />
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>

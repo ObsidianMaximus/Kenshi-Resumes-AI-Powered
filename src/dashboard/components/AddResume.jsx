@@ -1,6 +1,6 @@
 import { Loader2, PlusSquare } from 'lucide-react'
 import React from 'react'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import {
     Dialog,
     DialogContent,
@@ -15,13 +15,14 @@ import { v4 as uuidv4 } from 'uuid'
 import { useUser } from '@clerk/clerk-react'
 import GlobalApi from '../../../service/GlobalApi'
 import { useNavigate } from 'react-router'
+import { ThemeContext } from '@/context/ThemeContext'
 
 function AddResume() {
     const [openDialog, setOpenDialog] = useState(false);
     const [resumeTitle, setResumeTitle] = useState();
     const [loading, setLoading] = useState(false);
     const navigation = useNavigate();//useNavigate hook to navigate to different routes
-
+    const { theme, setTheme } = useContext(ThemeContext);
     const { user } = useUser();
 
     const onCreate = () => {
@@ -56,7 +57,7 @@ function AddResume() {
 
     return (
         <div>
-            <div className='p-14 py-24 border items-center flex justify-center bg-secondary rounded-lg h-[280px] hover:scale-105 transition-all shadow-md hover:shadow-lg cursor-pointer border-dashed'
+            <div className={'p-14 py-24 border items-center flex justify-center bg-secondary rounded-lg h-[280px] hover:scale-105 transition-all shadow-md hover:shadow-lg cursor-pointer border-dashed'}
                 onClick={() => setOpenDialog(true)}>
                 <PlusSquare />
             </div>

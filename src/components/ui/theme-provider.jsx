@@ -1,12 +1,13 @@
-import { createContext } from 'react';
-import { useState, useEffect, useContext } from 'react';
+import { createContext, useContext, useEffect, useState } from "react"
 
-export const ThemeContext = createContext({
-    theme: 'light',
-    setTheme: () => { } // Placeholder function
-});
+const initialState = {
+    theme: "system",
+    setTheme: () => null,
+}
 
-export function CustomThemeProvider({
+const ThemeProviderContext = createContext(initialState)
+
+export function ThemeProvider({
     children,
     defaultTheme = "light",
     storageKey = "vite-ui-theme",
@@ -43,14 +44,14 @@ export function CustomThemeProvider({
     }
 
     return (
-        <ThemeContext.Provider {...props} value={value}>
+        <ThemeProviderContext.Provider {...props} value={value}>
             {children}
-        </ThemeContext.Provider>
+        </ThemeProviderContext.Provider>
     )
 }
 
 export const useTheme = () => {
-    const context = useContext(ThemeContext)
+    const context = useContext(ThemeProviderContext)
 
     if (context === undefined)
         throw new Error("useTheme must be used within a ThemeProvider")

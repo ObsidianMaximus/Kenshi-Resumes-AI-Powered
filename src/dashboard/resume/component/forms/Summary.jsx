@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { Brain } from 'lucide-react';
 import { chatSession } from './../../../../../service/AIModel';
 import { Howl, Howler } from 'howler';
+import { ThemeContext } from '@/context/ThemeContext';
 
 function Summary({ enabledNext }) {
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
@@ -18,6 +19,7 @@ function Summary({ enabledNext }) {
     const params = useParams();
     const prompt = "Job Title: {jobTitle} , Depends on job title give me list of  summery for 3 experience level, Mid Level and Freasher level in 3 -4 lines in array format, With summary and experience_level Field in JSON Format";
     const [aiGeneratedSummaryList, setAiGeneratedSummaryList] = useState([]);
+    const { theme } = useContext(ThemeContext);
 
     const GenerateSummaryFromAI = async () => {
         setLoading(true);
@@ -69,14 +71,14 @@ function Summary({ enabledNext }) {
 
     return (
         <div>
-            <div className='bg-white p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10'>
+            <div className={(theme === 'light') ? 'bg-white p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10' : 'bg-gray-900 p-5 shadow-lg shadow-[rgba(0,191,255,0.8)] rounded-lg border-t-[rgba(0,191,255,0.8)] border-t-4 mt-10'}>
                 <h2 className='font-bold text-lg'>Summary</h2>
                 <p>Please add Summary for your job title</p>
 
                 <form className='mt-7' onSubmit={onSave}>
                     <div className='flex justify-between items-end'>
                         <label>Add Summary</label>
-                        <Button type="button" onClick={() => GenerateSummaryFromAI()} className="border-primary text-primary flex gap-2" variant="outline" size="sm"><Brain className="h-4 w-4" />Generate using AI</Button>
+                        <Button type="button" onClick={() => GenerateSummaryFromAI()} className={(theme === 'light') ? "border-primary text-[rgba(0,191,255,0.8)] flex gap-2" : "border-[rgba(0,191,255,0.8)] text-[rgba(0,191,255,0.8)] flex gap-2"} variant="outline" size="sm"><Brain className="h-4 w-4" />Generate using AI</Button>
                     </div>
                     <Textarea
                         placeholder="Write your own or can see the magic of AI"
@@ -87,7 +89,7 @@ function Summary({ enabledNext }) {
                     />
 
                     <div className='mt-2 flex justify-end'>
-                        <Button disabled={loading} type="submit">
+                        <Button disabled={loading} type="submit" className={(theme === 'dark') ? 'bg-[rgba(0,191,255,0.8)] hover:bg-white' : ''}>
                             {loading ? <LoaderCircle className='animate-spin' /> : "Save"}
                         </Button>
                     </div>
@@ -100,8 +102,8 @@ function Summary({ enabledNext }) {
                     {aiGeneratedSummaryList.map((item, index) => (
                         <div key={index}
                             onClick={() => setSummery(item?.summary)}
-                            className='p-5 shadow-lg my-4 rounded-lg cursor-pointer'>
-                            <h2 className='font-bold my-1 text-primary'>Level: {item?.experience_level}</h2>
+                            className={(theme === 'light') ? 'p-5 shadow-lg my-4 rounded-lg cursor-pointer' : 'p-5 shadow-lg shadow-[rgba(0,191,255,0.8)] my-4 rounded-lg cursor-pointer'}>
+                            <h2 className={(theme === 'light') ? 'font-bold my-1 text-primary' : 'font-bold my-1 text-[rgba(0,191,255,0.8)]'}>Level: {item?.experience_level}</h2>
                             <p>{item?.summary}</p>
                         </div>
                     ))}

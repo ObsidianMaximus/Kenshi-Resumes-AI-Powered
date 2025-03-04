@@ -25,6 +25,7 @@ import { toast } from 'sonner';
 import { useContext } from 'react';
 import { chatSession } from './../../../../service/AIModel';
 import { Howl, Howler } from 'howler';
+import { ThemeContext } from '@/context/ThemeContext';
 
 const PROMPT =
     `
@@ -56,7 +57,7 @@ function RichTextEditor({ onRichTextEditorChange, index, defaultValue }) {
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
     const [value, setvalue] = useState(defaultValue);
     const [loading, setLoading] = useState(false);
-
+    const { theme } = useContext(ThemeContext);
     const GenerateSummaryFromAI = async () => {
         setLoading(true);
         if (!resumeInfo?.Experience[index]?.title) {
@@ -83,7 +84,7 @@ function RichTextEditor({ onRichTextEditorChange, index, defaultValue }) {
             <div className='flex justify-between items-center my-2'>
                 <label className='text-xs'>Summery</label>
                 <Button variant="outline" size="sm"
-                    className="flex gap-2 border-primary text-primary"
+                    className={(theme === 'light') ? "flex gap-2 border-primary text-primary" : "flex gap-2 hover:border-[rgba(0,191,255,0.8)] border-[rgba(0,191,255,0.8)] text-[rgba(0,191,255,0.8)]"}
                     onClick={GenerateSummaryFromAI}>
                     {
                         loading ?
@@ -96,6 +97,7 @@ function RichTextEditor({ onRichTextEditorChange, index, defaultValue }) {
             </div>
             <EditorProvider>
                 <Editor
+                    className={(theme === 'dark') ? 'bg-gray-950' : ''}
                     value={value}
                     onChange={(e) => {
                         setvalue(e.target.value);
@@ -122,7 +124,7 @@ function RichTextEditor({ onRichTextEditorChange, index, defaultValue }) {
                     </Toolbar>
                 </Editor>
             </EditorProvider>
-        </div>
+        </div >
     )
 }
 

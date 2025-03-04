@@ -11,6 +11,7 @@ import GlobalApi from './../../../../../service/GlobalApi';
 import { toast } from "sonner";
 import { useRef } from 'react';
 import { Howl, Howler } from 'howler';
+import { ThemeContext } from '@/context/ThemeContext';
 
 function Education({ enabledNext }) {
     const startDateRef = useRef(null);
@@ -18,6 +19,7 @@ function Education({ enabledNext }) {
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
     const [loading, setLoading] = useState(false);
     const params = useParams();
+    const { theme } = useContext(ThemeContext);
     const [educationalList, setEducationalList] = useState([{
         university: '',
         degree: '',
@@ -103,7 +105,7 @@ function Education({ enabledNext }) {
     }, []);
 
     return (
-        <div className='bg-white p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10'>
+        <div className={(theme === 'light') ? 'bg-white p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10' : 'bg-gray-900 p-5 shadow-lg shadow-[rgba(0,191,255,0.8)] rounded-lg border-t-[rgba(0,191,255,0.8)] border-t-4 mt-10'}>
             <h2 className='font-bold text-lg'>Education</h2>
             <p>Please add your educational details</p>
 
@@ -144,11 +146,12 @@ function Education({ enabledNext }) {
             </div>
             <div className='flex justify-between'>
                 <div className='sm:flex-row gap-2 flex flex-col'>
-                    <Button variant="outline" onClick={AddNewEducation} className="text-primary">+ Add More Education</Button>
-                    <Button variant="outline" onClick={RemoveEducation} className="text-primary">- Remove</Button>
+                    <Button variant="outline" onClick={AddNewEducation} className={(theme === 'light') ? "text-primary" : "text-[rgba(0,191,255,0.8)] hover:border-[rgba(0,191,255,0.8)]"}>+ Add More Education</Button>
+                    <Button variant="outline" onClick={RemoveEducation} className={(theme === 'light') ? "text-primary" : "text-[rgba(0,191,255,0.8)] hover:border-[rgba(0,191,255,0.8)]"}>- Remove</Button>
                 </div>
 
                 <Button type="submit"
+                    className={(theme === 'dark') ? 'bg-[rgba(0,191,255,0.8)] hover:bg-white' : ''}
                     disabled={loading}
                     onClick={() => onSave()}
                 > {loading ? <LoaderCircle className='animate-spin' /> : "Save"}</Button>

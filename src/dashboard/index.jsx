@@ -3,12 +3,14 @@ import AddResume from './components/AddResume';
 import GlobalApi from './../../service/GlobalApi';
 import { useUser } from '@clerk/clerk-react';
 import ResumeCardItem from './components/ResumeCardItem';
+import { ThemeContext } from '@/context/ThemeContext';
+import { useContext } from 'react';
 
 function Dashboard() {
     //fetching user emaail using clerk
     const { user } = useUser();
     const [resumeList, setResumeList] = useState([]); //state to store resume list
-
+    const { theme, setTheme } = useContext(ThemeContext);
     useEffect(() => {
         user && GetResumesList(); //if user is present then get the resume list
     }, [user]);
@@ -22,8 +24,8 @@ function Dashboard() {
     }
 
     return (
-        <div className='bg-gradient-to-r from-red-200 to-yellow-200' >
-            <div className='bg-[url("../../textures/diagonal-striped-brick.png")] h-screen overflow-y-scroll scroll-smooth p-10 md:px-20 lg:px-32'>
+        <div className={(theme === 'light') ? 'bg-gradient-to-r from-red-200 to-yellow-200' : 'bg-[url("../../textures/grid.png")] '} >
+            <div className={(theme === 'light') ? 'bg-[url("../../textures/diagonal-striped-brick.png")] h-screen overflow-y-scroll scroll-smooth p-10 md:px-20 lg:px-32' : 'h-screen overflow-y-scroll scroll-smooth p-10 md:px-20 lg:px-32'}>
                 <h2 className='font-bold text-3xl'>My Resume</h2>
                 <p>
                     "Craft your perfect resume effortlessly with AI-powered precision!"
