@@ -8,12 +8,14 @@ import GlobalApi from './../../../../../service/GlobalApi';
 import { LoaderCircle } from 'lucide-react';
 import { toast } from "sonner"
 import { Howl, Howler } from 'howler';
+import { ThemeContext } from '@/context/ThemeContext';
 
 function PersonalDetails({ enabledNext }) {
     const params = useParams();
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
     const [formData, setFormData] = useState({});
     const [loading, setLoading] = useState(false);
+    const { theme } = useContext(ThemeContext);
 
     useEffect(() => {
         console.log(params);
@@ -62,7 +64,7 @@ function PersonalDetails({ enabledNext }) {
     }
 
     return (
-        <div className='bg-white p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10'>
+        <div className={(theme === 'light') ? 'bg-white p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10' : ' bg-gray-900 p-5 shadow-lg shadow-[rgba(0,191,255,0.8)] rounded-lg border-t-[rgba(0,191,255,0.8)] border-t-4 mt-10'}>
             <h2 className='font-bold text-lg'>Personal Detail</h2>
             <p>Get started with basic information</p>
 
@@ -103,6 +105,7 @@ function PersonalDetails({ enabledNext }) {
                 <div className='mt-3 flex justify-end'>
                     <Button type="submit"
                         disabled={loading}
+                        className={(theme === 'dark') ? 'bg-[rgba(0,191,255,0.8)] hover:bg-white' : ''}
                     > {loading ? <LoaderCircle className='animate-spin' /> : "Save"}</Button>
                 </div>
             </form>

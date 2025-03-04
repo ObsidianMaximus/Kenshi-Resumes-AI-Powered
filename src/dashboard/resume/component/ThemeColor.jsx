@@ -11,11 +11,13 @@ import { useParams } from 'react-router'
 import GlobalApi from '../../../../service/GlobalApi'
 import { toast } from 'sonner'
 import { Howl, Howler } from 'howler';
+import { ThemeContext } from '@/context/ThemeContext'
 
 function ThemeColor() {
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
     const [selectedColor, setSelectedColor] = useState();
     const { resumeId } = useParams();
+    const { theme } = useContext(ThemeContext);
     const onColorSelect = (color) => {
         setSelectedColor(color);
         setResumeInfo({
@@ -47,7 +49,7 @@ function ThemeColor() {
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <Button variant="outline" size="sm" className="flex gap-2"><LayoutGrid />Theme</Button>
+                <Button variant="outline" size="sm" className={(theme === 'light') ? "flex gap-2" : "flex gap-2 hover:border-[rgba(0,191,255,0.8)]"}><LayoutGrid />Theme</Button>
             </PopoverTrigger>
             <PopoverContent>
                 <h2 className='mb-4 text-sm font-bold'>Select Theme Color:</h2>
