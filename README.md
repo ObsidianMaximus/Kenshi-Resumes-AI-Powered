@@ -80,6 +80,23 @@ GitHub Actions (`build_docker_image.yaml`) uses:
 - No SSH required
 
 #### Note: If in case we wish to remove the whole infrastructure and all our tools from aws, we simply have to execute `tf_destroy.yaml`.
+
+```mermaid
+graph TD
+    A[Developer: Push to GitHub] --> B{GitHub Actions}
+    B --> C(Build Job: Build Docker Image)
+    C --> D[Push to GHCR]
+    B --> E(Deploy Job: Authenticate AWS)
+    D --> F(Deploy Job: Send SSM Command)
+    E --> F
+    F --> G(EC2 Instance)
+    G -- 1. docker pull --> D
+    G -- 2. docker stop/rm --> H[Stop Old Container]
+    H --> I[Run New Container]
+    I --> J[NGINX Reverse Proxy]
+    J --> K[Route Traffic to Container]
+    L[External Users] --> K
+```
 ---
 
 ## Runtime Environment Variables
